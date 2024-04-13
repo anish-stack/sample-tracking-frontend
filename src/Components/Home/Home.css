@@ -1,0 +1,87 @@
+.home-main-container{
+    width: 100%;
+}
+
+.home-main-container .container{
+    max-width: 1920px;
+    margin: 0 auto;
+    display: flex
+}
+
+.home-main-container .container .header-parent{
+    width: 18%;
+}
+
+.img-logo{
+    width: 30%;
+    height: auto;
+    object-position: left;
+    object-fit: cover;
+}
+.home-main-container .container .content-parent{
+    width: 82%;
+}
+
+.home-main-container .container .content-parent .top-header{
+    width: 100%;
+    height: 11vh;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.home-main-container .container .content-parent .bottom{
+    width: 100%;
+    height: 89vh;
+}
+
+.home-main-container .container .content-parent .top-header .menu-parent{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.home-main-container .container .content-parent .top-header .menu-parent .menu{
+    display:none;
+    font-size: 24px;
+}
+
+.home-main-container .container .content-parent .top-header .menu-parent .search{
+    font-size: 24px;
+}
+
+.home-main-container .container .content-parent .top-header .user i{
+    font-size: 22px;
+}
+
+@media (max-width:1000px) {
+
+    .home-main-container .container .content-parent .top-header .menu-parent .menu{
+        display:block;
+        font-size: 24px;
+    }
+
+    .home-main-container .container{
+        position: relative;
+    }
+
+    .home-main-container .container .header-parent{
+        width: 230px;
+        position: absolute;
+        top: 0%;
+        left: -100%;
+        z-index: 99;
+    }
+
+    .home-main-container .container .content-parent{
+        width: 100%;
+
+    }
+
+    .menu-show{
+        left: 0% !important;
+    }
+    
+}

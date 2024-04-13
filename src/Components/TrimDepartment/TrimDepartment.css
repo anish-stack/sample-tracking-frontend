@@ -1,0 +1,95 @@
+.trimDepartment-section {
+    width: 100%;
+}
+
+.trimDepartment-section .container {
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn {
+    background-color: #4caf50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .del-btn {
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+.tna{
+padding: 0.3rem 1.5rem;
+color: aliceblue;
+background-color: #3cf436;
+}
+
+.trimDepartment-section .container .heading {
+    width: 100%;
+    text-align: center;
+}
+
+.trimDepartment-section .container .heading span {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.trimDepartment-section .container .main-detail {
+    width: 100%;
+}
+
+.trimDepartment-section .container .main-detail .table-parent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trimDepartment-section .container .main-detail .table-parent .table-wrapper {
+    /* width: 100%; */
+    overflow-x: auto; 
+    max-height: 400px; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.trimDepartment-section .container .main-detail .table-parent table {
+    width: 100%;
+}
+
+.trimDepartment-section .container .main-detail .table-parent table,
+.trimDepartment-section .container .main-detail .table-parent th,
+.trimDepartment-section .container .main-detail .table-parent td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 8px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.trimDepartment-section .container .main-detail .table-parent th,
+.trimDepartment-section .container .main-detail .table-parent td {
+    padding: 5px 8px;
+    width: 100%;
+}
+
+.trimDepartment-section .container .main-detail .table-parent td {
+    color: rgb(103, 103, 103);
+}

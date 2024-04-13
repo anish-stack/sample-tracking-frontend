@@ -1,0 +1,71 @@
+.existingStyle-section {
+    width: 100%;
+}
+
+.existingStyle-section .container {
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.existingStyle-section .container .heading {
+    width: 100%;
+    text-align: center;
+}
+
+.existingStyle-section .container .heading span {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.existingStyle-section .container .main-detail {
+    width: 100%;
+}
+
+.existingStyle-section .container .main-detail .table-parent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.existingStyle-section .container .main-detail .table-parent .table-wrapper {
+    width: 100%;
+    overflow-x: auto; 
+    max-height: 400px; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.existingStyle-section .container .main-detail .table-parent table {
+    width: 100%;
+}
+
+.existingStyle-section .container .main-detail .table-parent table,
+.existingStyle-section .container .main-detail .table-parent th,
+.existingStyle-section .container .main-detail .table-parent td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 8px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.existingStyle-section .container .main-detail .table-parent th,
+.existingStyle-section .container .main-detail .table-parent td {
+    padding: 5px 8px;
+    width: 20%;
+}
+
+.existingStyle-section .container .main-detail .table-parent td {
+    color: rgb(103, 103, 103);
+}
+
+.existingStyle-section .container .main-detail .table-parent td a{
+    background-color: red;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 4px;
+}

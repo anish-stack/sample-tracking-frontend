@@ -1,0 +1,176 @@
+.addnewstyle-section {
+    width: 100%;
+}
+
+.addnewstyle-section .container {
+    width: 100%;
+    padding: 10px 0px;
+    margin-top: 20px;
+    /* display: flex;
+    flex-direction: column;
+    gap: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.flex input{
+    width: 49%;
+    height: 100%;
+    padding-left: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+}
+.addnewstyle-section .container .main-detail {
+    width: 70%;
+    padding: 15px 20px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px rgb(190, 190, 190);
+
+}
+
+.addnewstyle-section .container .main-detail .heading {
+    width: 100%;
+    text-align: center;
+}
+
+.addnewstyle-section .container .main-detail .heading span {
+    font-size: 25px;
+    font-weight: 700;
+    color: cadetblue;
+}
+
+.addnewstyle-section .container .main-detail form{
+    width: 100%;
+}
+
+.addnewstyle-section .container .main-detail form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addnewstyle-section .container .main-detail form .same-field{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addnewstyle-section .container .main-detail form .same-field input{
+    width: 49%;
+    height: 100%;
+    padding-left: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+}
+
+.addnewstyle-section .container .main-detail form .styleName{
+    width: 100% !important;
+}
+
+.addnewstyle-section .container .main-detail form .styleName input{
+    width: 100%;
+}
+
+.addnewstyle-section .container .main-detail form .same-field select{
+    width: 49%;
+    height: 100%;
+    border: none;
+    box-shadow: 0px 0px 4px rgb(209, 209, 209);
+    outline: none;
+}
+
+.addnewstyle-section .container .main-detail form button{
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 9px;
+    border-radius: 5px;
+}
+
+
+@media (max-width:740px) {
+
+    .addnewstyle-section .container .main-detail {
+        width: 90%;
+    }
+    
+}
+
+@media (max-width:560px) {
+    
+    .addnewstyle-section .container .main-detail form .same-field{
+        width: 100%;
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+    }
+    
+    .addnewstyle-section .container .main-detail form .same-field input{
+        width: 100%;
+        height: 40px;
+    }
+
+    .addnewstyle-section .container .main-detail form .same-field select{
+        width: 100%;
+        height: 40px;
+    }
+    
+}
+
+
+/* .addnewstyle-section .container .main-detail .table-parent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addnewstyle-section .container .main-detail .table-parent .table-wrapper {
+    overflow-x: auto; 
+    max-height: 400px; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.addnewstyle-section .container .main-detail .table-parent table {
+    width: 100%;
+}
+
+.addnewstyle-section .container .main-detail .table-parent table,
+.addnewstyle-section .container .main-detail .table-parent th,
+.addnewstyle-section .container .main-detail .table-parent td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 8px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.addnewstyle-section .container .main-detail .table-parent th,
+.addnewstyle-section .container .main-detail .table-parent td {
+    padding: 5px 8px;
+    width: 100%;
+}
+
+.addnewstyle-section .container .main-detail .table-parent td {
+    color: rgb(103, 103, 103);
+} */

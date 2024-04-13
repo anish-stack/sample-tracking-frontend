@@ -1,0 +1,82 @@
+.header-section{
+    width: 100%;
+    height: 100vh;
+    /* background-color: red; */
+    background-color: rgb(250, 247, 247);
+    /* border-right: 1px dotted black; */
+}
+
+.header-section .container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+
+}
+
+.header-section .container .img{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-section .container .img span{
+    font-size: 25px;
+}
+
+.header-section .container .ul-parent{
+    overflow-y: auto;
+    height: 100%;
+}
+
+.header-section .container .navbar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    /* height: 550px; */
+}
+
+.header-section .container .navbar .normal-link{
+    width: 100%;
+    /* height: 64px; */
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 15px;
+    padding: 9px 0px;
+}
+
+.header-section .container .navbar .buyer-hover{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-section .container .navbar .buyer-hover .buyer-dropdown{
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    height: 350px;
+
+    background-color: white;
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.header-section .container .navbar .buyer-hover .buyer-dropdown a{
+    color: black;
+    width: 100%;
+    /* background-color: red; */
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.isbuyershow{
+    display: flex !important;
+}
