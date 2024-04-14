@@ -6,14 +6,7 @@ const PatterDepartment = () => {
     const Users = sessionStorage.getItem('user')
     const User = JSON.parse(Users)
     const trimPersonName = User.userName
-    // if (trimPersonName === "Pattern-Making-Manager") {
-    //     console.log("first");
-    // } else {
-    //     alert("You do not have access to handle it.");
-    //     window.location.href = "/";
-    // }
-
-    console.log(trimPersonName)
+    const [searchQuery, setSearchQuery] = useState('');
     const [style, setStyle] = useState([])
     const [work, setNoWork] = useState()
     const fetchData = async () => {
@@ -32,6 +25,13 @@ const PatterDepartment = () => {
     useEffect(() => {
         fetchData()
     }, [])
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
+
+    const filteredStyle = style.filter((item) =>
+        item.styleName.toLowerCase().includes(searchQuery)
+    );
     return (
         <>
             {User.department === "PATTERN MAKING" && User.userName.includes("Manager") ? (
@@ -58,7 +58,7 @@ const PatterDepartment = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {style && style.map((item, index) => (
+                                            {filteredStyle && filteredStyle.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>

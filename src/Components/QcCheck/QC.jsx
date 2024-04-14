@@ -6,14 +6,8 @@ const Qc = () => {
     const Users = sessionStorage.getItem('user')
     const User = JSON.parse(Users)
     const trimPersonName = User.userName
-    // if (trimPersonName === "Pattern-Making-Manager") {
-    //     console.log("first");
-    // } else {
-    //     alert("You do not have access to handle it.");
-    //     window.location.href = "/";
-    // }
+    const [searchQuery, setSearchQuery] = useState('');
 
-    console.log(trimPersonName)
     const [style, setStyle] = useState([])
     const [work, setNoWork] = useState()
     const fetchData = async () => {
@@ -32,10 +26,24 @@ const Qc = () => {
     useEffect(() => {
         fetchData()
     }, [])
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
+
+    const filteredStyle = style.filter((item) =>
+        item.styleName.toLowerCase().includes(searchQuery)
+    );
     return (
         <>
             {User.department === "QC CHECK" && User.userName.includes("Manager") ? (
                 <section className='trimDepartment-section'>
+                    <input
+                        type="text"
+                        placeholder="Search by Style Name"
+                        onChange={handleSearch}
+                        value={searchQuery}
+                    />
+
                     <div className="container">
                         <div className="heading">
                             <span>QUALIITY-CHECK-DEPARTMENT (Manger) </span>
@@ -58,7 +66,7 @@ const Qc = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {style && style.map((item, index) => (
+                                            {filteredStyle && filteredStyle.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
@@ -66,7 +74,7 @@ const Qc = () => {
                                                     <td>{item.assignDate}</td>
                                                     <td>{item.endDate}</td>
                                                     <td>{item.numberOfPcs}</td>
-                                                      {/* //assignworker */}
+                                                    {/* //assignworker */}
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>
@@ -91,7 +99,7 @@ const Qc = () => {
                                                             "Work Not Assigned"
                                                         )}
                                                     </td>
-                                                  
+
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>

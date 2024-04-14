@@ -103,7 +103,7 @@ const Register = () => {
                         <div className="department same-field">
                             <select name='department' value={formData.department} onChange={handleChange}>
                                 <option value="">Select Department</option>
-                                <option value="Merchant">Merchant</option>
+                                <option value="Merchant">MERCHENT</option>
                                 <option value="Trim Department">Trim Department</option>
                                 <option value="Fabric Department">Fabric Department</option>
                                 <option value="PATTERN MAKING">PATTERN MAKING</option>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './HomePage.css';
-
+import img from './fabrc.jpg'
 function HomePage() {
   const User = JSON.parse(sessionStorage.getItem('user'));
 
@@ -24,7 +24,10 @@ function HomePage() {
           </div>
         </div>
       ) : (
-        <div className="container">
+        <div className="container-home">
+          <div className="home-imgs">
+            <div className="img"><img src={img} alt="home-image" /></div>
+          </div>
           <h3>Real Time Sample Tracking</h3>
         </div>
       )}

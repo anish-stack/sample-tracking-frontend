@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const Qcwork = () => {
   const [qcWork, setQcWork] = useState([]);
+  const [filteredStyle, setFilteredStyle] = useState([]);
   const token = sessionStorage.getItem('token');
   const users = sessionStorage.getItem('user');
   const user = JSON.parse(users);
@@ -22,6 +23,7 @@ const Qcwork = () => {
         setQcWork("No work assigned for the trim department person.");
       } else {
         setQcWork(res.data.data);
+        setFilteredStyle(res.data.data);
       }
     } catch (error) {
       console.log("Trim-Person Error:", error);
@@ -38,34 +40,47 @@ const Qcwork = () => {
 
     // If the user cancels the prompt or enters an empty string, do nothing
     if (!remark) return;
-    
-    const status = {
-        comment: "Completed",
-        whichDepartment: user.department, // Corrected typo in department
-        PersonName: trimPersonName,
-        Reviews: remark // Include the remark in the status object
-    };
-console.log(status)
-    try {
-        const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
-            status
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
 
-        toast.success("Work Updated");
-        console.log("Updated", response);
-        fetchDataForQc();
+    const status = {
+      comment: "Completed",
+      whichDepartment: user.department, // Corrected typo in department
+      PersonName: trimPersonName,
+      Reviews: remark // Include the remark in the status object
+    };
+    console.log(status)
+    try {
+      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
+        status
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      toast.success("Work Updated");
+      console.log("Updated", response);
+      fetchDataForQc();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
+  };
+  const handleSearch = (e) => {
+    const keyword = e.target.value.toLowerCase();
+    const filtered = qcWork.filter(item =>
+        item.styleName.toLowerCase().includes(keyword)
+    );
+    setFilteredStyle(filtered);
 };
 
   return (
     <div className="qc-table">
-      <ToastContainer/>
+      <input
+        type="text"
+        placeholder="Search by Style Name"
+        onChange={handleSearch}
+        value={searchQuery}
+      />
+      <ToastContainer />
       {Array.isArray(qcWork) && qcWork.length > 0 ? (
         <table className="qc-table">
           <thead>
@@ -85,7 +100,7 @@ console.log(status)
             </tr>
           </thead>
           <tbody>
-            {qcWork.map((item, index) => (
+            {filteredStyle.map((item, index) => (
               <tr key={index}>
                 <td>{item.srfNo}</td>
                 <td>{item.styleName}</td>
@@ -121,7 +136,7 @@ console.log(status)
                   ))}
                 </td>
                 <td>
-                {item.WorkAssigned.map((work, idx) => (
+                  {item.WorkAssigned.map((work, idx) => (
                     <div key={idx}>
                       {work.department === "QC CHECK" && (
                         work.Reviews || "No Remark"

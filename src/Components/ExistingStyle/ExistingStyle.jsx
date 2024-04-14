@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './ExistingStyle.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+
 function ExistingStyle() {
-    const [style, setStyle] = useState([])
-    const token = sessionStorage.getItem('token')
-    const Users =sessionStorage.getItem('user')
-    const User = JSON.parse(Users)
-    if (User.department !== "Merchant") {
-        alert("You do not have access to manage styles.");
-        window.location.href = "/";
+    const [style, setStyle] = useState([]);
+    const [filteredStyle, setFilteredStyle] = useState([]);
+    const [selectedStyle, setSelectedStyle] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const token = sessionStorage.getItem('token');
+    const Users = sessionStorage.getItem('user');
+    const User = JSON.parse(Users);
+
+    if (User.department !== 'Merchant') {
+        alert('You do not have access to manage styles.');
+        window.location.href = '/';
     }
-    
+
     const fetchData = async () => {
         try {
             const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
@@ -19,25 +25,54 @@ function ExistingStyle() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(res.data.data);
-            setStyle(res.data.data)
+            setStyle(res.data.data);
+            setFilteredStyle(res.data.data);
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (searchQuery.trim() === '') {
+            setFilteredStyle(style);
+        } else {
+            const filtered = style.filter(item =>
+                item.styleName.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilteredStyle(filtered);
+        }
+    }, [searchQuery, style]);
+
     function toLocalDateString(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString();
     }
+
+    const openModal = (item) => {
+        setSelectedStyle(item);
+    }
+
+    const closeModal = () => {
+        setSelectedStyle(null);
+    }
+
     return (
         <section className='existingStyle-section'>
             <div className="container">
                 <div className="heading">
                     <span>Existing Style</span>
+                </div>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search by Style Name"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 </div>
                 <div className="main-detail">
                     <div className="table-parent">
@@ -52,12 +87,11 @@ function ExistingStyle() {
                                         <th>Assign Start Date</th>
                                         <th>Assign End Date</th>
                                         <th>TNA</th>
-                                        {/* <th>Sourcing</th> */}
                                         <th>Final Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {style && style.map((item, index) => (
+                                    {filteredStyle.map((item, index) => (
                                         <tr key={index}>
                                             <td>{item.srfNo}</td>
                                             <td>{item.styleName}</td>
@@ -65,53 +99,45 @@ function ExistingStyle() {
                                             <td>{item.sampleType}</td>
                                             <td>{toLocalDateString(item.assignDate)}</td>
                                             <td>{toLocalDateString(item.endDate)}</td>
-
                                             <td><Link to={`/tna/:${item._id}`}>TNA</Link></td>
-                                            
-                                            <td>{item.status}</td>
+                                            <td>
+                                                {item.WorkAssigned.length === 1 ? (
+                                                    <ul>
+                                                        <li>PersonName: {item.WorkAssigned[0].NameOfPerson}</li>
+                                                        <li>Department: {item.WorkAssigned[0].department}</li>
+                                                        <li>Comment: {item.WorkAssigned[0].stauts}</li>
+                                                        <li>Date: {toLocalDateString(item.WorkAssigned[0].stautsDate)}</li>
+                                                    </ul>
+                                                ) : (
+                                                        <button onClick={() => openModal(item)}>View All</button>
+                                                    )}
+                                            </td>
                                         </tr>
-                                    ))
-
-                                    }
-                                    {/* <tr>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td><Link to={'/tna'}>TNA</Link></td>
-                                <td>Fabric</td>
-                                <td>Demo</td>
-                            </tr>
-                            <tr>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td><Link to={'/tna'}>TNA</Link></td>
-                                <td>trim</td>
-                                <td>Demo</td>
-                            </tr>
-                            <tr>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td>Demo</td>
-                                <td><Link to={'/tna'}>TNA</Link></td>
-                                <td>Trim Departement</td>
-                                <td>Demo</td>
-                            </tr> */}
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Modal */}
+            {selectedStyle && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <h2>All Final Status</h2>
+                        {selectedStyle.WorkAssigned.map((statusItem, index) => (
+                            <ul key={index}>
+                                <li>PersonName: {statusItem.NameOfPerson}</li>
+                                <li>Department: {statusItem.department}</li>
+                                <li>Comment: {statusItem.stauts}</li>
+                                <li>Date: {toLocalDateString(statusItem.stautsDate)}</li>
+                            </ul>
+                        ))}
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function FiberDepartment() {
-    const [style, setStyle] = useState([])
-    const [work, setNoWork] = useState()
+    const [style, setStyle] = useState([]);
+    const [filteredStyle, setFilteredStyle] = useState([]);
+    const [work, setNoWork] = useState('');
 
-    const token = sessionStorage.getItem('token')
-    const Users = sessionStorage.getItem('user')
-    const User = JSON.parse(Users)
-    const trimPersonName = User.userName
-    console.log(trimPersonName)
+    const token = sessionStorage.getItem('token');
+    const Users = sessionStorage.getItem('user');
+    const User = JSON.parse(Users);
+    const trimPersonName = User.userName;
 
     const fetchData = async () => {
         try {
@@ -19,8 +19,8 @@ function FiberDepartment() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log("Merchenta-Person", res.data.data);
-            setStyle(res.data.data)
+            setStyle(res.data.data);
+            setFilteredStyle(res.data.data);
         } catch (error) {
             console.log(error);
         }
@@ -33,11 +33,11 @@ function FiberDepartment() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log("Trime-Person", res.data.data);
             if (res.data.data.length === 0) {
-                setNoWork("No work assigned for the trim department person.")
+                setNoWork("No work assigned for the trim department person.");
             } else {
-                setStyle(res.data.data)
+                setStyle(res.data.data);
+                setFilteredStyle(res.data.data);
             }
         } catch (error) {
             console.log("Trime-Person", error);
@@ -46,18 +46,11 @@ function FiberDepartment() {
 
     useEffect(() => {
         if (User.department === "Fabric Department") {
-            fetchDataForTrim()
+            fetchDataForTrim();
         } else if (User.department === "Merchant") {
-            fetchData()
+            fetchData();
         }
-    }, [])
-    const handleAddRemark = (index) => {
-        const remark = prompt("Write your remark:");
-        if (remark !== null) {
-            console.log("Remark:", remark);
-            // Here you can send the remark to the server or perform any other action
-        }
-    };
+    }, []);
     function toLocalDateString(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString();
@@ -107,36 +100,14 @@ function FiberDepartment() {
 
         return delayClass;
     }
-
-    const handleChangeStauts = async (id) => {
-        try {
-            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-style/${id}`, {
-                status: "Completed"
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            console.log("Updated")
-        } catch (error) {
-            console.log(error)
-        }
+    const handleSearch = (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filtered = style.filter(item =>
+            item.styleName.toLowerCase().includes(keyword)
+        );
+        setFilteredStyle(filtered);
     }
 
-    const handleDeleteStyle = async (id) => {
-        try {
-            const response = await axios.delete(`https://sample-tracking.onrender.com/api/v1/delete-style/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            console.log("Deleted")
-            fetchDataForTrim()
-            fetchData()
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <section className='trimDepartment-section'>
@@ -147,6 +118,8 @@ function FiberDepartment() {
                 <div className="main-detail">
                     <div className="table-parent">
                         <div className="table-wrapper">
+                        <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+
                             <table>
                                 <thead>
                                     <tr>
@@ -169,7 +142,7 @@ function FiberDepartment() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {style && style.map((item, index) => (
+                                    {filteredStyle && filteredStyle.map((item, index) => (
                                         <tr key={index}>
                                             <td>{item.srfNo}</td>
                                             <td>{item.styleName}</td>
@@ -187,27 +160,27 @@ function FiberDepartment() {
 
                                             <td><Link className='tna' to={`/tna/${item._id}`}>TNA</Link></td>
                                             <td>
-    {item.status && item.status.length > 0 ? (
-        <ul>
-            {item.status.map((status, index) => {
-                if (status.whichDepartemt === 'fabric') {
-                    return (
-                        <li key={index}>
-                            <p>Department: {status.whichDepartemt}</p>
-                            <p>Name: {status.PersonName}</p>
-                            <p>Remark: {status.comment}</p>
-                            {index !== item.status.length - 1 && <hr />}
-                        </li>
-                    );
-                } else {
-                    return null;
-                }
-            })}
-        </ul>
-    ) : (
-        "No Updated"
-    )}
-</td>
+                                                {item.status && item.status.length > 0 ? (
+                                                    <ul>
+                                                        {item.status.map((status, index) => {
+                                                            if (status.whichDepartemt === 'fabric') {
+                                                                return (
+                                                                    <li key={index}>
+                                                                        <p>Department: {status.whichDepartemt}</p>
+                                                                        <p>Name: {status.PersonName}</p>
+                                                                        <p>Remark: {status.comment}</p>
+                                                                        {index !== item.status.length - 1 && <hr />}
+                                                                    </li>
+                                                                );
+                                                            } else {
+                                                                return null;
+                                                            }
+                                                        })}
+                                                    </ul>
+                                                ) : (
+                                                    "No Updated"
+                                                )}
+                                            </td>
 
                                             <td>
                                                 {item.remark && item.remark.length > 0 ? (

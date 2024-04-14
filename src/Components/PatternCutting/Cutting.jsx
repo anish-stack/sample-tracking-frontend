@@ -6,15 +6,12 @@ const Cutting = () => {
     const Users = sessionStorage.getItem('user')
     const User = JSON.parse(Users)
     const trimPersonName = User.userName
-    // if (trimPersonName === "Pattern-Making-Manager") {
-    //     console.log("first");
-    // } else {
-    //     alert("You do not have access to handle it.");
-    //     window.location.href = "/";
-    // }
+
 
     console.log(trimPersonName)
     const [style, setStyle] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+
     const [work, setNoWork] = useState()
     const fetchData = async () => {
         try {
@@ -32,10 +29,24 @@ const Cutting = () => {
     useEffect(() => {
         fetchData()
     }, [])
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
+
+    const filteredStyle = style.filter((item) =>
+        item.styleName.toLowerCase().includes(searchQuery)
+    );
+
     return (
         <>
             {User.department === "PATTERN CUTTING" && User.userName.includes("Manager") ? (
                 <section className='trimDepartment-section'>
+                    <input
+                        type="text"
+                        placeholder="Search by Style Name"
+                        onChange={handleSearch}
+                        value={searchQuery}
+                    />
                     <div className="container">
                         <div className="heading">
                             <span>PATTERN CUTTING-DEPARTMENT (Manger) </span>
@@ -66,7 +77,7 @@ const Cutting = () => {
                                                     <td>{item.assignDate}</td>
                                                     <td>{item.endDate}</td>
                                                     <td>{item.numberOfPcs}</td>
-                                                      {/* //assignworker */}
+                                                    {/* //assignworker */}
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>
@@ -91,7 +102,7 @@ const Cutting = () => {
                                                             "Work Not Assigned"
                                                         )}
                                                     </td>
-                                                  
+
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>
@@ -154,7 +165,7 @@ const Cutting = () => {
             ) : (
                 <div className='ceen'>You Have No Rights To Access This
                     {User.department === "PATTERN CUTTING" ? (
-                        window.location.href = "/QC-Work"
+                        window.location.href = "/pattern-cutting-worker"
                     ) : null}
                 </div>
             )}

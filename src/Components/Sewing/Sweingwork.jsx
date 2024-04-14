@@ -8,7 +8,7 @@ const SewingPerson = () => {
   const users = sessionStorage.getItem('user');
   const user = JSON.parse(users);
   const trimPersonName = user.userName;
-  console.log("Name",trimPersonName)
+  const [filteredStyle, setFilteredStyle] = useState([]);
 
   const fetchDataForQc = async () => {
     try {
@@ -22,6 +22,7 @@ const SewingPerson = () => {
         setSewingPerson("No work assigned for the trim department person.");
       } else {
         setSewingPerson(res.data.data);
+        setFilteredStyle(res.data.data);
       }
     } catch (error) {
       console.log("Trim-Person Error:", error);
@@ -63,9 +64,19 @@ console.log(status)
     }
 };
 
+const handleSearch = (e) => {
+  const keyword = e.target.value.toLowerCase();
+  const filtered = SewingPerson.filter(item =>
+      item.styleName.toLowerCase().includes(keyword)
+  );
+  setFilteredStyle(filtered);
+};
   return (
     <div className="qc-table">
+      
       <ToastContainer/>
+      <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+
       {Array.isArray(SewingPerson) && SewingPerson.length > 0 ? (
         <table className="qc-table">
           <thead>

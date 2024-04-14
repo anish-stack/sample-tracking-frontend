@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
-const Qc = () => {
-    const token = sessionStorage.getItem('token')
-    const Users = sessionStorage.getItem('user')
-    const User = JSON.parse(Users)
-    const trimPersonName = User.userName
-    // if (trimPersonName === "Pattern-Making-Manager") {
-    //     console.log("first");
-    // } else {
-    //     alert("You do not have access to handle it.");
-    //     window.location.href = "/";
-    // }
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-    console.log(trimPersonName)
-    const [style, setStyle] = useState([])
-    const [work, setNoWork] = useState()
+const Finishing = () => {
+    const token = sessionStorage.getItem('token');
+    const Users = sessionStorage.getItem('user');
+    const User = JSON.parse(Users);
+    const trimPersonName = User.userName;
+
+    const [style, setStyle] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
     const fetchData = async () => {
         try {
             const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
@@ -23,15 +18,23 @@ const Qc = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log("Merchenta-Person", res.data.data);
-            setStyle(res.data.data)
+            setStyle(res.data.data);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
+
+    const filteredStyle = style.filter((item) =>
+        item.styleName.toLowerCase().includes(searchQuery)
+    );
     return (
         <>
             {User.department === "FINISHING" && User.userName.includes("Manager") ? (
@@ -41,6 +44,12 @@ const Qc = () => {
                             <span>FINISHING-DEPARTMENT (Manger) </span>
                         </div>
                         <div className="main-detail">
+                            <input
+                                        type="text"
+                                        placeholder="Search by Style Name"
+                                        onChange={handleSearch}
+                                        value={searchQuery}
+                                    />
                             <div className="table-parent">
                                 <div className="table-wrapper">
                                     <table>
@@ -58,7 +67,7 @@ const Qc = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {style && style.map((item, index) => (
+                                            {filteredStyle && filteredStyle.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
@@ -161,4 +170,4 @@ const Qc = () => {
     )
 }
 
-export default Qc
+export default Finishing

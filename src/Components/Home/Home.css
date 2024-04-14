@@ -40,6 +40,8 @@
 .home-main-container .container .content-parent .top-header .menu-parent{
     display: flex;
     gap: 20px;
+    position: relative;z-index: 8888;
+    left: 82%;
     align-items: center;
 }
 

@@ -9,17 +9,8 @@ import AddNewStyle from '../AddNewStyle/AddNewStyle'
 import TNA from '../TNA/TNA'
 import HomePage from '../HomePage/HomePage'
 import FiberDepartment from '../FiberDepartment/FiberDepartment'
-import PrimarkBuyer from '../PrimarkBuyer/PrimarkBuyer'
 import TrimDepartment from '../TrimDepartment/TrimDepartment'
-import George from '../George/George'
-import Nutmeg from '../Nutmeg/Nutmeg'
-import Next from '../Next/Next'
-import Pourmoi from '../Pourmoi/Pourmoi'
-import Lipsy from '../Lipsy/Lipsy'
-import Mango from '../Mango/Mango'
-import Asos from '../Asos/Asos'
-import Noon from '../Noon/Noon'
-import Brownie from '../Brownie/Brownie'
+
 import PatterDepartment from '../Pattern/PatterDepartment'
 import AssignWork from '../Pattern/AssignWork'
 import Cutting from '../PatternCutting/Cutting'
@@ -66,7 +57,7 @@ function Home() {
                     <header className='header-section'>
                         <div className="container">
                             <div className="img">
-                                <img src="https://i.ibb.co/583KdcR/Whats-App-Image-2024-04-08-at-22-30-52-5583a449.jpg" className='img-logo' alt="" /><span>Sample Tracking</span>
+                                <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" className='img-logo' alt="" /><span>Sample Tracking</span>
                             </div>
                             <div className="ul-parent">
                                 <ul className='navbar'>
@@ -100,18 +91,7 @@ function Home() {
                                         <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing Style</Link> */}
                                     <Link to={'/primark-buyer'} onClick={handleIsBuyerActive} className='buyer-hover normal-link' >
                                         Buyers
-                                        {/* <ul className={`buyer-dropdown ${isBuyerActive ? 'isbuyershow' : ''}`}>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/primark-buyer'}>Primark</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/george'}>George</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/nutmag'}>Nutmag</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/next'}>Next</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/pourmoi'}>Pourmoi</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/lipsy'}>Lipsy</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/mango'}>Mango</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/asos'}>Asos</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/noon'}>Noon</Link>
-                                            <Link onClick={handleIsBuyerDeActive} to={'/brownie'}>Brownie</Link>
-                                        </ul> */}
+                                       
                                     </Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing style</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/profile'} >Profile</Link>
@@ -125,10 +105,7 @@ function Home() {
                     <div className="top-header">
                         <div className="menu-parent">
                             <i onClick={handleIsMenuActive} className="ri-menu-line menu"></i>
-                            {/* <div className="input-box">
-                        <input type="text" />
-                    </div>
-                    <i class="ri-search-line search"></i> */}
+                          
                         </div>
                         <div className="user">
                             <i class="ri-user-line"></i>
@@ -170,16 +147,7 @@ function Home() {
 
                             <Route path='/tna/:id' element={<TNA />} />
                             <Route path='/add-new-style' element={<AddNewStyle />} />
-                            <Route path='/primark-buyer' element={<PrimarkBuyer />} />
-                            <Route path='/george' element={<George />} />
-                            <Route path='/nutmag' element={<Nutmeg />} />
-                            <Route path='/next' element={<Next />} />
-                            <Route path='/pourmoi' element={<Pourmoi />} />
-                            <Route path='/lipsy' element={<Lipsy />} />
-                            <Route path='/mango' element={<Mango />} />
-                            <Route path='/asos' element={<Asos />} />
-                            <Route path='/noon' element={<Noon />} />
-                            <Route path='/brownie' element={<Brownie />} />
+                    
                         </Routes>
                     </div>
                 </div>

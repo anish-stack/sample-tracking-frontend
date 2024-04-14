@@ -8,8 +8,8 @@ const FinishingWork = () => {
   const users = sessionStorage.getItem('user');
   const user = JSON.parse(users);
   const trimPersonName = user.userName;
-  console.log("Name",trimPersonName)
-
+  console.log("Name", trimPersonName)
+  const [searchQuery, setSearchQuery] = useState('');
   const fetchDataForQc = async () => {
     try {
       const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
@@ -38,34 +38,49 @@ const FinishingWork = () => {
 
     // If the user cancels the prompt or enters an empty string, do nothing
     if (!remark) return;
-    
-    const status = {
-        comment: "Completed",
-        whichDepartment: user.department, // Corrected typo in department
-        PersonName: trimPersonName,
-        Reviews: remark // Include the remark in the status object
-    };
-console.log(status)
-    try {
-        const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
-            status
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
 
-        toast.success("Work Updated");
-        console.log("Updated", response);
-        fetchDataForQc();
+    const status = {
+      comment: "Completed",
+      whichDepartment: user.department, // Corrected typo in department
+      PersonName: trimPersonName,
+      Reviews: remark // Include the remark in the status object
+    };
+    console.log(status)
+    try {
+      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
+        status
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      toast.success("Work Updated");
+      console.log("Updated", response);
+      fetchDataForQc();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
+
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const filteredStyle = FinishingWork.filter((item) =>
+    item.styleName.toLowerCase().includes(searchQuery)
+  );
 
   return (
     <div className="qc-table">
-      <ToastContainer/>
+      <ToastContainer />
+      <input
+                                        type="text"
+                                        placeholder="Search by Style Name"
+                                        onChange={handleSearch}
+                                        value={searchQuery}
+                                    />
       {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
         <table className="qc-table">
           <thead>
@@ -78,15 +93,15 @@ console.log(status)
               <th>Total Quantity</th>
               <th>Work Assigned To</th>
               <th>Status</th>
-              
+
               <th>Comment By Manager</th>
               <th>Remark</th>
- {/* New column for Comment */}
+              {/* New column for Comment */}
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {FinishingWork.map((item, index) => (
+            {filteredStyle.map((item, index) => (
               <tr key={index}>
                 <td>{item.srfNo}</td>
                 <td>{item.styleName}</td>
@@ -122,7 +137,7 @@ console.log(status)
                   ))}
                 </td>
                 <td>
-                {item.WorkAssigned.map((work, idx) => (
+                  {item.WorkAssigned.map((work, idx) => (
                     <div key={idx}>
                       {work.department === "FINISHING" && (
                         work.Reviews || "No Remark"
