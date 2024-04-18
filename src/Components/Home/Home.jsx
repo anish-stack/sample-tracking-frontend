@@ -83,11 +83,11 @@ function Home() {
                                     {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/login'} >Login</Link> */}
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/trim-department'} >Trim Department</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-department'} >Fabric Department</Link>
-                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-cuting'} >Fabric-Cutting Department</Link>
-
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/pattern-Making-department'} >Pattern Making Department</Link>
 
-                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/pattern-cutting-department'} >Pattern Cutting Department</Link>
+
+                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/pattern-cutting-department'} >Pattern Plotting And Cutting Department</Link>
+                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-cuting'} >Fabric-Cutting Department</Link>
                                     {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-cutting-department'} >Fabric Cutting Department</Link> */}
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/sewing-department'} >Sewing Department</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/finishing-department'} >Finishing Department</Link>
@@ -97,8 +97,7 @@ function Home() {
                                     {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/add-new-style'} >Add New Style</Link>
                                         <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing Style</Link> */}
                                     <Link to={'/primark-buyer'} onClick={handleIsBuyerActive} className='buyer-hover normal-link' >
-                                        Buyers
-                                       
+                                     Merchandising Department
                                     </Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing style</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/profile'} >Profile</Link>
@@ -119,7 +118,7 @@ function Home() {
 
                         </div>
                         <div className="user">
-                        <img src="https://i.ibb.co/TP5qs6w/pngwing-com-2.png" width={80} alt="pngwing-com-2" border="0"/>
+                        <img src="https://i.ibb.co/TP5qs6w/pngwing-com-2.png" width={60} alt="pngwing-com-2" border="0"/>
                         </div>
                     </div>
                     <div className="bottom">
@@ -143,25 +142,9 @@ function Home() {
                             <Route path='/qc-check-department' element={<Qc />} />
                             <Route path='/QC-Work' element={<Qcwork />} />
                             <Route path='/primark-buyer' element={<PrimarkBuyer />} />
-
-                            
                             <Route path='/Finishing-work' element={<FinishingWork />} />
                             <Route path='/sewing-work' element={<SewingPerson />} />
-
-
-
-
-
-
-
-
-
-
-
-
                             <Route path='/Assign/:id' element={<AssignWork />} />
-
-
                             <Route path='/tna/:id' element={<TNA />} />
                             <Route path='/add-new-style' element={<AddNewStyle />} />
                     

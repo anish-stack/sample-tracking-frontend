@@ -14,7 +14,7 @@ function FiberDepartment() {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
+            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -29,7 +29,7 @@ function FiberDepartment() {
 
     const fetchDataForTrim = async () => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/fabric/${trimPersonName}`, {
+            const res = await axios.get(`http://localhost:8010/api/v1/fabric/${trimPersonName}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

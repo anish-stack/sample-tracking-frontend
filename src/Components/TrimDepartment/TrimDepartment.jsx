@@ -14,7 +14,7 @@ function TrimDepartment() {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
+            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -28,7 +28,7 @@ function TrimDepartment() {
 
     const fetchDataForTrim = async () => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/trim/${trimPersonName}`, {
+            const res = await axios.get(`http://localhost:8010/api/v1/trim/${trimPersonName}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -116,7 +116,7 @@ function TrimDepartment() {
             PersonName: trimPersonName
         }
         try {
-            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-style/${id}`, {
+            const response = await axios.post(`http://localhost:8010/api/v1/update-style/${id}`, {
                 status
             }, {
                 headers: {
@@ -131,7 +131,7 @@ function TrimDepartment() {
 
     const handleDeleteStyle = async (id) => {
         try {
-            const response = await axios.delete(`https://sample-tracking.onrender.com/api/v1/delete-style/${id}`, {
+            const response = await axios.delete(`http://localhost:8010/api/v1/delete-style/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -148,7 +148,7 @@ function TrimDepartment() {
         <section className='trimDepartment-section'>
             <div className="container">
                 <div className="heading">
-                    <span>Trim Department</span>
+                    {/* <span>Trim Department</span> */}
                 </div>
                 <div className="main-detail">
                     <div className="table-parent">
@@ -161,14 +161,14 @@ function TrimDepartment() {
                                         {/* <th>Colour</th> */}
                                         <th>Days</th>
                                         <th>Task Start Date</th>
-                                        <th>Task End Date</th>
-                                        <th>Descriptions</th>
+                                        {/* <th>Task End Date</th> */}
+                                        <th>Description</th>
 
 
                                         <th>Delay</th>
 
                                         <th>Total Quantity</th>
-                                        <th>Tna</th>
+                                        <th>TNA</th>
                                         <th>Status</th>
                                         <th>Remark</th>
                                         <th>Change Status</th>
@@ -182,7 +182,7 @@ function TrimDepartment() {
                                             {/* <td>{item.color[0]}</td> */}
                                             <td>2</td>
                                             <td>{toLocalDateString(item.assignDate)}</td>
-                                            <td>{toLocalDateString(item.endDate)}</td>
+                                            {/* <td>{toLocalDateString(item.endDate)}</td> */}
                                             <td>{item.trimDepartmentMsg}</td>
                                             <td className={calculateDelayClass(item.assignDate, item.endDate)}>{calculateDelayDays(item.assignDate, item.endDate)}</td>
 

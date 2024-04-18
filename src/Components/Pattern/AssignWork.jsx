@@ -16,7 +16,7 @@ const AssignWork = () => {
 
     const fetchAllPatternMakingUsers = async () => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/get-user-by-department/${User.department}`);
+            const res = await axios.get(`http://localhost:8010/api/v1/get-user-by-department/${User.department}`);
             console.log(res.data.data);
             setPatternPerson(res.data.data);
         } catch (error) {
@@ -40,7 +40,7 @@ const AssignWork = () => {
 
         try {
             console.log(WorkAssigned)
-            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/Assigned`, {
+            const response = await axios.post(`http://localhost:8010/api/v1/Assigned`, {
                 WorkAssigned
             }, {
                 headers: {
@@ -57,7 +57,7 @@ const AssignWork = () => {
     return (
         <div className="assignWork">
             <ToastContainer/>
-            <label htmlFor="patternPerson">Select Pattern Making Person:</label>
+            {/* <label htmlFor="patternPerson">Select Pattern Making Person:</label> */}
             <select id="patternPerson" onChange={(e) => setSelectedPerson(e.target.value)} value={selectedPerson}>
                 <option value="">Select person...</option>
                 {PatternPerson.map((person, index) => (

@@ -13,7 +13,7 @@ const FABRICUTTING = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
+            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -41,7 +41,7 @@ const FABRICUTTING = () => {
                 <section className='trimDepartment-section'>
                     <div className="container">
                         <div className="heading">
-                            <span>FABRIC CUTTING-DEPARTMENT (Manger) </span>
+                            <span>FABRIC CUTTING-DEPARTMENT (Head) </span>
                         </div>
                         <div className="main-detail">
                             <input

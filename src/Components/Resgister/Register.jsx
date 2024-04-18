@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-    const BackendRoute = "https://sample-tracking.onrender.com";
+    const BackendRoute = "http://localhost:8010";
 
     // Define state variables for form fields and loading state
     const [formData, setFormData] = useState({
@@ -95,8 +95,8 @@ const Register = () => {
                             </button>
                         <div className="department same-field">
                             <select name='department' value={formData.department} onChange={handleChange}>
-                                <option value="">SELECT DEPARTMENT</option>
-                                <option value="Merchant">MERCHENTDIZE DEPARTMENT</option>
+                                <option value="">Select Department</option>
+                                <option value="Merchant">MERCHANDISING DEPARTMENT</option>
                                 <option value="Trim Department">TRIM DEPARTMENT</option>
                                 <option value="Fabric Department">FABRIC DEPARTMENT</option>
                                 <option value="PATTERN MAKING">PATTERN MAKING DEPARTMENT</option>

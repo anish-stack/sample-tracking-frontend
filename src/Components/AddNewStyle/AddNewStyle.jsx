@@ -54,7 +54,7 @@ function AddNewStyle() {
 
     const getNameOftrimePersen = async (Department) => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/get-user-by-department/${Department}`)
+            const res = await axios.get(`http://localhost:8010/api/v1/get-user-by-department/${Department}`)
             console.log(res.data.data)
             setTrimNames(res.data.data)
         } catch (error) {
@@ -64,7 +64,7 @@ function AddNewStyle() {
 
     const getNameOFabricPersen = async (Department) => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/get-user-by-department/${Department}`)
+            const res = await axios.get(`http://localhost:8010/api/v1/get-user-by-department/${Department}`)
             console.log(res.data.data)
             setFabricNames(res.data.data)
         } catch (error) {
@@ -76,7 +76,7 @@ function AddNewStyle() {
         e.preventDefault();
         console.log(formData)
         // Replace 'YOUR_BACKEND_URL' with the actual backend URL
-        const backendURL = 'https://sample-tracking.onrender.com/api/v1/create-style';
+        const backendURL = 'http://localhost:8010/api/v1/create-style';
         try {
             const token = sessionStorage.getItem('token'); // Assuming you store the token in sessionStorage
             const response = await axios.post(backendURL, formData, {

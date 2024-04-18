@@ -11,7 +11,7 @@ function TNA() {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/get-All-styles`, {
+            const res = await axios.get(`http://localhost:8010/api/v1/get-All-styles`, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem('token')}`
                 }
@@ -32,7 +32,7 @@ function TNA() {
         if (remark !== null) {
             console.log("Remark:", remark);
             try {
-                const res = await axios.post(`https://sample-tracking.onrender.com/api/v1/remark/${id}`, { remark }, {
+                const res = await axios.post(`http://localhost:8010/api/v1/remark/${id}`, { remark }, {
                     headers: {
                         Authorization: `Bearer ${sessionStorage.getItem('token')}`
                     }
@@ -98,7 +98,7 @@ function TNA() {
     const renderTable = () => {
         return (
             <div>
-                <h2>{ParseUser.department}</h2>
+                {/* <h2>{ParseUser.department}</h2> */}
                 <table>
                     <thead>
                         <tr>
@@ -106,6 +106,8 @@ function TNA() {
                             <th>Style Name</th>
                             <th>Days</th>
                             <th>Task Start Date</th>
+                            <th>Task End Date</th>
+
                             {/* <th>Task End Date</th> */}
                             <th>Delay</th>
                             <th>Remark</th>
@@ -118,6 +120,8 @@ function TNA() {
                                 <td>{task.styleName}</td>
                                 <td>{["Trim Department", "Fabric Department", "PATTERN MAKING", "SEWING"].includes(ParseUser.department) ? "2" : "1"}</td>
                                 <td>{new Date(task.assignDate).toLocaleDateString()}</td>
+                                <td>4/20/2024</td>
+
                                 {/* <td>{new Date(task.endDate).toLocaleDateString()}</td> */}
                                 <td>{calculateDelayDays(task.assignDate, task.endDate, ParseUser.department)}</td>
                                 <td><button onClick={() => handleAddRemark(index)}>Add Remark</button></td>

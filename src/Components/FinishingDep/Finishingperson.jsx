@@ -12,7 +12,7 @@ const FinishingWork = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const fetchDataForQc = async () => {
     try {
-      const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
+      const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -47,7 +47,7 @@ const FinishingWork = () => {
     };
     console.log(status)
     try {
-      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
+      const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
         status
       }, {
         headers: {
@@ -76,11 +76,11 @@ const FinishingWork = () => {
     <div className="qc-table">
       <ToastContainer />
       <input
-                                        type="text"
-                                        placeholder="Search by Style Name"
-                                        onChange={handleSearch}
-                                        value={searchQuery}
-                                    />
+        type="text"
+        placeholder="Search by Style Name"
+        onChange={handleSearch}
+        value={searchQuery}
+      />
       {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
         <table className="qc-table">
           <thead>

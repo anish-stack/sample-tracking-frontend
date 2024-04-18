@@ -13,7 +13,7 @@ const PatternWorkByPerson = () => {
 
     const fetchDataForQc = async () => {
         try {
-            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
+            const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -54,7 +54,7 @@ const PatternWorkByPerson = () => {
             Reviews: remark
         };
         try {
-            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
+            const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
                 status
             }, {
                 headers: {

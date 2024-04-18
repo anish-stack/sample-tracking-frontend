@@ -8,7 +8,7 @@ function Header({handleIsMenuDeActive}) {
         <header className='header-section'>
             <div className="container">
                 <div className="img">
-                    <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" alt="" />
+                    <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" width={80} alt="" />
                 </div>
                 <div className="ul-parent">
                 <ul className='navbar'>

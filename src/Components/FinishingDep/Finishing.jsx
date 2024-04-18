@@ -13,7 +13,7 @@ const Finishing = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
+            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -35,21 +35,25 @@ const Finishing = () => {
     const filteredStyle = style.filter((item) =>
         item.styleName.toLowerCase().includes(searchQuery)
     );
+    function toLocalDateString(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
     return (
         <>
             {User.department === "FINISHING" && User.userName.includes("Manager") ? (
                 <section className='trimDepartment-section'>
                     <div className="container">
                         <div className="heading">
-                            <span>FINISHING-DEPARTMENT (Manger) </span>
+                            <span>FINISHING-DEPARTMENT (Head) </span>
                         </div>
                         <div className="main-detail">
                             <input
-                                        type="text"
-                                        placeholder="Search by Style Name"
-                                        onChange={handleSearch}
-                                        value={searchQuery}
-                                    />
+                                type="text"
+                                placeholder="Search by Style Name"
+                                onChange={handleSearch}
+                                value={searchQuery}
+                            />
                             <div className="table-parent">
                                 <div className="table-wrapper">
                                     <table>
@@ -72,8 +76,8 @@ const Finishing = () => {
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
                                                     <td>2</td>
-                                                    <td>{item.assignDate}</td>
-                                                    <td>{item.endDate}</td>
+                                                    <td>{toLocalDateString(item.assignDate)}</td>
+                                            <td>{toLocalDateString(item.endDate)}</td>
                                                     <td>{item.numberOfPcs}</td>
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (

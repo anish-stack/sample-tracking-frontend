@@ -12,7 +12,7 @@ const Qc = () => {
     const [work, setNoWork] = useState()
     const fetchData = async () => {
         try {
-            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
+            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -45,7 +45,7 @@ const Qc = () => {
                     />
                     <div className="container">
                         <div className="heading">
-                            <span>SEWING-DEPARTMENT (Manger) </span>
+                            <span>SEWING-DEPARTMENT (Head) </span>
                         </div>
                         <div className="main-detail">
                             <div className="table-parent">

@@ -10,3 +10,16 @@
 html,body{
     text-transform: capitalize;
 }
+.main-detail {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.main-detail input{
+    display: flex;
+    margin-bottom: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 40%!important;
+}
