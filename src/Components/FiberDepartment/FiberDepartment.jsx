@@ -21,6 +21,7 @@ function FiberDepartment() {
             });
             setStyle(res.data.data);
             setFilteredStyle(res.data.data);
+            console.log(filteredStyle)
         } catch (error) {
             console.log(error);
         }
@@ -113,7 +114,7 @@ function FiberDepartment() {
         <section className='trimDepartment-section'>
             <div className="container">
                 <div className="heading">
-                    <span>Fabric departemnt Department</span>
+                    <span>Fabric  Department</span>
                 </div>
                 <div className="main-detail">
                     <div className="table-parent">
@@ -127,18 +128,18 @@ function FiberDepartment() {
                                         <th>Style Name</th>
                                         {/* <th>Colour</th> */}
                                         <th>Days</th>
-                                        <th>Task Started Date</th>
-                                        <th>Task Ended Date</th>
-                                        <th>Discriptions</th>
+                                        <th>Task Start Date</th>
+                                        <th>Task End Date</th>
+                                        <th>Descriptions</th>
 
 
                                         <th>Delay</th>
 
                                         <th>Total Quantity</th>
                                         <th>tna</th>
-                                        <th>Stauts</th>
+                                        <th>Status</th>
                                         <th>Remark</th>
-                                        <th>Change stauts</th>
+                                        <th>Change Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -22,6 +22,9 @@ import Qcwork from '../QcCheck/Qcwork'
 import FinishingWork from '../FinishingDep/Finishingperson'
 import SewingPerson from '../Sewing/Sweingwork'
 import Cuttingworker from '../PatternCutting/Cuttingworker'
+import PrimarkBuyer from '../PrimarkBuyer/PrimarkBuyer'
+import FABRICUTTING from '../Fabric Cutting/FabricCutting'
+import FabricCuttingWorker from '../Fabric Cutting/FabricCuttingWorker'
 
 function Home() {
     const token = sessionStorage.getItem('token')
@@ -49,7 +52,9 @@ function Home() {
     const handleIsMenuDeActive = () => {
         setIsMenuActive(false)
     }
-
+    const user = sessionStorage.getItem('user');
+    const ParseUser = JSON.parse(user) || {};
+    
     return (
         <section className='home-main-container'>
             <div className="container">
@@ -57,7 +62,7 @@ function Home() {
                     <header className='header-section'>
                         <div className="container">
                             <div className="img">
-                                <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" className='img-logo' alt="" /><span>Sample Tracking</span>
+                                <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" className='img-logo' alt="" />
                             </div>
                             <div className="ul-parent">
                                 <ul className='navbar'>
@@ -78,6 +83,8 @@ function Home() {
                                     {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/login'} >Login</Link> */}
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/trim-department'} >Trim Department</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-department'} >Fabric Department</Link>
+                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/fabric-cuting'} >Fabric-Cutting Department</Link>
+
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/pattern-Making-department'} >Pattern Making Department</Link>
 
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/pattern-cutting-department'} >Pattern Cutting Department</Link>
@@ -107,8 +114,12 @@ function Home() {
                             <i onClick={handleIsMenuActive} className="ri-menu-line menu"></i>
                           
                         </div>
+                        <div className='dep'>
+                        {ParseUser.department ? ParseUser.department : " "}
+
+                        </div>
                         <div className="user">
-                            <i class="ri-user-line"></i>
+                        <img src="https://i.ibb.co/TP5qs6w/pngwing-com-2.png" width={80} alt="pngwing-com-2" border="0"/>
                         </div>
                     </div>
                     <div className="bottom">
@@ -122,12 +133,18 @@ function Home() {
                             <Route path='/pattern-Making-department' element={<PatterDepartment />} />
                             <Route path='/pattern-cutting-department' element={<Cutting />} />
                             <Route path='/pattern-cutting-worker' element={<Cuttingworker />} />
+                            <Route path='/fabric-cuting' element={<FABRICUTTING />} />
+                            <Route path='/fabric-cuting-worker' element={<FabricCuttingWorker />} />
 
+                          
                             <Route path='/sewing-department' element={<Sewing />} />
                             <Route path='/Pattern-Work' element={<PatternWorkByPerson />} />
                             <Route path='/finishing-department' element={<Finishing />} />
                             <Route path='/qc-check-department' element={<Qc />} />
                             <Route path='/QC-Work' element={<Qcwork />} />
+                            <Route path='/primark-buyer' element={<PrimarkBuyer />} />
+
+                            
                             <Route path='/Finishing-work' element={<FinishingWork />} />
                             <Route path='/sewing-work' element={<SewingPerson />} />
 

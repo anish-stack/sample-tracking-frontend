@@ -12,6 +12,11 @@
     width: 18%;
 }
 
+.dep{
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+}
 .img-logo{
     width: 30%;
     height: auto;
@@ -25,7 +30,7 @@
 .home-main-container .container .content-parent .top-header{
     width: 100%;
     height: 11vh;
-    background-color: aliceblue;
+    background-color: rgba(235, 93, 41, 0.882);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,3 +92,5 @@
     }
     
 }
+
+/* #E2E7FB */

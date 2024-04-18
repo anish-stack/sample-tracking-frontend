@@ -60,8 +60,8 @@ const Cutting = () => {
                                                 <th>SRF No.</th>
                                                 <th>Style Name</th>
                                                 <th>Days</th>
-                                                <th>Task Started Date</th>
-                                                <th>Task Ended Date</th>
+                                                <th>Task Start Date</th>
+                                                <th>Task End Date</th>
                                                 <th>Total Quantity</th>
                                                 <th>Action By Worker</th>
                                                 <th>Work Assigned To</th>

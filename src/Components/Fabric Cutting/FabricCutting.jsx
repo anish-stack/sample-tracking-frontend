@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const Finishing = () => {
+const FABRICUTTING = () => {
     const token = sessionStorage.getItem('token');
     const Users = sessionStorage.getItem('user');
     const User = JSON.parse(Users);
@@ -37,11 +37,11 @@ const Finishing = () => {
     );
     return (
         <>
-            {User.department === "FINISHING" && User.userName.includes("Manager") ? (
+            {User.department === "FABRIC CUTTING" && User.userName.includes("Manager") ? (
                 <section className='trimDepartment-section'>
                     <div className="container">
                         <div className="heading">
-                            <span>FINISHING-DEPARTMENT (Manger) </span>
+                            <span>FABRIC CUTTING-DEPARTMENT (Manger) </span>
                         </div>
                         <div className="main-detail">
                             <input
@@ -79,7 +79,7 @@ const Finishing = () => {
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>
                                                                 {item.WorkAssigned.map((Pattern, index) => {
-                                                                    if (Pattern.department === 'FINISHING') {
+                                                                    if (Pattern.department === 'FABRIC CUTTING') {
                                                                         return (
                                                                             <li key={index}>
 
@@ -103,7 +103,7 @@ const Finishing = () => {
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>
                                                                 {item.WorkAssigned.map((Pattern, index) => {
-                                                                    if (Pattern.department === 'FINISHING') {
+                                                                    if (Pattern.department === 'FABRIC CUTTING') {
                                                                         return (
                                                                             <li key={index}>
                                                                                 <p>Department: {Pattern.department}</p>
@@ -127,7 +127,7 @@ const Finishing = () => {
                                                     {item.remark && item.remark.length > 0 ? (
                                                         <ul>
                                                             {item.remark
-                                                                .filter(remark => remark.WhichDepartment === "FINISHING")
+                                                                .filter(remark => remark.WhichDepartment === "FABRIC CUTTING")
                                                                 .map((remark, index) => (
                                                                     <li key={index}>
                                                                         <p>Department: {remark.WhichDepartment}</p>
@@ -142,7 +142,7 @@ const Finishing = () => {
                                                     )}
                                                 </td> */}
                                                     <td>
-                                                        {item.WorkAssigned && item.WorkAssigned.length > 0 && item.WorkAssigned.some(workItem => workItem.department === "FINISHING") ? (
+                                                        {item.WorkAssigned && item.WorkAssigned.length > 0 && item.WorkAssigned.some(workItem => workItem.department === "FABRIC CUTTING") ? (
                                                             "Already Assigned"
                                                         ) : (
                                                             <Link className='btn-cta' to={`/Assign/${item._id}`}>Work Assign</Link>
@@ -160,8 +160,8 @@ const Finishing = () => {
                 </section>
             ) : (
                 <div className='ceen'>You Have No Rights To Access This
-                    {User.department === "FINISHING" ? (
-                        window.location.href = "/finishing-work"
+                    {User.department === "FABRIC CUTTING" ? (
+                        window.location.href = "/fabric-cuting-worker"
                     ) : null}
                 </div>
             )}
@@ -170,4 +170,4 @@ const Finishing = () => {
     )
 }
 
-export default Finishing
+export default FABRICUTTING

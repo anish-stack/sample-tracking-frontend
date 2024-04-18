@@ -59,6 +59,25 @@ function ExistingStyle() {
     const closeModal = () => {
         setSelectedStyle(null);
     }
+    function allDepartmentsPresent(workAssigned) {
+        const departments = [
+          "TRIM DEPARTMENT",
+          "FABRIC DEPARTMENT",
+          "PATTERN MAKING DEPARTMENT",
+          "PATTERN CUTTING DEPARTMENT",
+          "FABRIC CUTTING DEPARTMENT",
+          "SEWING DEPARTMENT",
+          "FINISHING DEPARTMENT",
+          "QC CHECK DEPARTMENT"
+        ];
+      
+        // Extract department names from workAssigned and convert to lowercase
+        const assignedDepartmentsLowercase = workAssigned.map(item => item.department.toLowerCase());
+      
+        // Check if all departments exist in assignedDepartmentsLowercase (ignoring case)
+        return departments.every(department => assignedDepartmentsLowercase.includes(department.toLowerCase()));
+      }
+      
 
     return (
         <section className='existingStyle-section'>
@@ -99,7 +118,7 @@ function ExistingStyle() {
                                             <td>{item.sampleType}</td>
                                             <td>{toLocalDateString(item.assignDate)}</td>
                                             <td>{toLocalDateString(item.endDate)}</td>
-                                            <td><Link to={`/tna/:${item._id}`}>TNA</Link></td>
+                                            <td><Link to={`/tna/${item._id}`}>TNA</Link></td>
                                             <td>
                                                 {item.WorkAssigned.length === 1 ? (
                                                     <ul>
@@ -109,9 +128,20 @@ function ExistingStyle() {
                                                         <li>Date: {toLocalDateString(item.WorkAssigned[0].stautsDate)}</li>
                                                     </ul>
                                                 ) : (
+                                                    // Check if all departments are present
+                                                    allDepartmentsPresent(item.WorkAssigned) ? (
+                                                        // If all departments are present, show View All button
+                                                        <>
+                                                          <span>Work Done</span>
                                                         <button onClick={() => openModal(item)}>View All</button>
-                                                    )}
+                                                        </>
+                                                    ) : (
+                                                        // If any department is missing, indicate incomplete work
+                                                        <span>Work Incomplete</span>
+                                                    )
+                                                )}
                                             </td>
+
                                         </tr>
                                     ))}
                                 </tbody>

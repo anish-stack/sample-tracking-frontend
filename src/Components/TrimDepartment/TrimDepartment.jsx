@@ -160,18 +160,18 @@ function TrimDepartment() {
                                         <th>Style Name</th>
                                         {/* <th>Colour</th> */}
                                         <th>Days</th>
-                                        <th>Task Started Date</th>
-                                        <th>Task Ended Date</th>
-                                        <th>Discriptions</th>
+                                        <th>Task Start Date</th>
+                                        <th>Task End Date</th>
+                                        <th>Descriptions</th>
 
 
                                         <th>Delay</th>
 
                                         <th>Total Quantity</th>
-                                        <th>tna</th>
-                                        <th>Stauts</th>
+                                        <th>Tna</th>
+                                        <th>Status</th>
                                         <th>Remark</th>
-                                        <th>Change stauts</th>
+                                        <th>Change Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>

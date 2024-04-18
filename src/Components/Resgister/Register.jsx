@@ -11,7 +11,6 @@ const Register = () => {
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
-        phoneNumber: '',
         password: '',
         department: ''
     });
@@ -48,11 +47,7 @@ const Register = () => {
         }
 
         // Validate phone number for India (10 digits)
-        const phoneNumberPattern = /^\d{10}$/;
-        if (!phoneNumberPattern.test(formData.phoneNumber)) {
-            toast.error("Please enter a valid 10-digit phone number for India");
-            return;
-        }
+
 
         setIsLoading(true); // Set loading state to true
 
@@ -90,9 +85,7 @@ const Register = () => {
                         <div className="email same-field">
                             <input type="email" placeholder='Email Address' name='email' value={formData.email} onChange={handleChange} />
                         </div>
-                        <div className="phone same-field">
-                            <input type="text" placeholder='Phone Number' name='phoneNumber' value={formData.phoneNumber} onChange={handleChange} />
-                        </div>
+                
                         <div className="password same-field">
                             <input type={showPassword ? 'text' : 'password'} placeholder='Password' name='password' value={formData.password} onChange={handleChange} />
                            
@@ -102,16 +95,16 @@ const Register = () => {
                             </button>
                         <div className="department same-field">
                             <select name='department' value={formData.department} onChange={handleChange}>
-                                <option value="">Select Department</option>
-                                <option value="Merchant">MERCHENT</option>
-                                <option value="Trim Department">Trim Department</option>
-                                <option value="Fabric Department">Fabric Department</option>
-                                <option value="PATTERN MAKING">PATTERN MAKING</option>
-                                <option value="PATTERN CUTTING">PATTERN CUTTING</option>
-                                <option value="FABRIC CUTTING">FABRIC CUTTING</option>
-                                <option value="SEWING">SEWING</option>
-                                <option value="FINISHING">FINISHING</option>
-                                <option value="QC CHECK">QC CHECK</option>
+                                <option value="">SELECT DEPARTMENT</option>
+                                <option value="Merchant">MERCHENTDIZE DEPARTMENT</option>
+                                <option value="Trim Department">TRIM DEPARTMENT</option>
+                                <option value="Fabric Department">FABRIC DEPARTMENT</option>
+                                <option value="PATTERN MAKING">PATTERN MAKING DEPARTMENT</option>
+                                <option value="PATTERN CUTTING">PATTERN CUTTING DEPARTMENT</option>
+                                <option value="FABRIC CUTTING">FABRIC CUTTING DEPARTMENT</option>
+                                <option value="SEWING">SEWING DEPARTMENT</option>
+                                <option value="FINISHING">FINISHING DEPARTMENT</option>
+                                <option value="QC CHECK">QC CHECK DEPARTMENT</option>
                             </select>
                         </div>
                         <button type="submit" disabled={isLoading}>

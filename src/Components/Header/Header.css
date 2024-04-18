@@ -2,7 +2,7 @@
     width: 100%;
     height: 100vh;
     /* background-color: red; */
-    background-color: rgb(250, 247, 247);
+    background-color: #E2E7FB;
     /* border-right: 1px dotted black; */
 }
 
@@ -16,7 +16,8 @@
 
 .header-section .container .img{
     width: 100%;
-    height: 60px;
+    height: 80px;
+    background-color: #ED7042;
     display: flex;
     align-items: center;
     justify-content: center;

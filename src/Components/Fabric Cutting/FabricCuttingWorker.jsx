@@ -2,46 +2,50 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
-const CuttingWorker = () => {
-    const [cuttingWorker, setCuttingWorker] = useState([]);
-    const [filteredStyle, setFilteredStyle] = useState([]);
+const FabricCuttingWorker = () => {
+    const [FinishingWork, setFinishingWork] = useState([]);
     const token = sessionStorage.getItem('token');
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const users = sessionStorage.getItem('user');
+    const user = JSON.parse(users);
     const trimPersonName = user.userName;
-
-    const fetchDataForCutting = async () => {
+    console.log("Name", trimPersonName)
+    const [searchQuery, setSearchQuery] = useState('');
+    const fetchDataForQc = async () => {
         try {
-          const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
+            console.log(res.data.data)
             if (res.data.data.length === 0) {
-                setCuttingWorker("No work assigned for the cutting department person.");
+                setFinishingWork("No work assigned for the trim department person.");
             } else {
-                setCuttingWorker(res.data.data);
-                setFilteredStyle(res.data.data);
+                setFinishingWork(res.data.data);
             }
         } catch (error) {
-            console.log("Cutting Worker Error:", error);
+            console.log("Trim-Person Error:", error);
         }
     };
 
     useEffect(() => {
-        fetchDataForCutting();
+        fetchDataForQc();
     }, []);
 
     const handleChangeStatus = async (id) => {
+        // Prompt the user for a remark
         const remark = window.prompt("Please enter your remark:");
+
+        // If the user cancels the prompt or enters an empty string, do nothing
         if (!remark) return;
 
         const status = {
             comment: "Completed",
-            whichDepartment: user.department,
+            whichDepartment: user.department, // Corrected typo in department
             PersonName: trimPersonName,
-            Reviews: remark
+            Reviews: remark // Include the remark in the status object
         };
-
+        console.log(status)
         try {
             const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
                 status
@@ -52,26 +56,33 @@ const CuttingWorker = () => {
             });
 
             toast.success("Work Updated");
-            fetchDataForCutting();
+            console.log("Updated", response);
+            fetchDataForQc();
         } catch (error) {
             console.log(error);
         }
     };
 
+
     const handleSearch = (e) => {
-        const keyword = e.target.value.toLowerCase();
-        const filtered = cuttingWorker.filter(item =>
-            item.styleName.toLowerCase().includes(keyword)
-        );
-        setFilteredStyle(filtered);
+        setSearchQuery(e.target.value.toLowerCase());
     };
 
+    const filteredStyle = FinishingWork.filter((item) =>
+        item.styleName.toLowerCase().includes(searchQuery)
+    );
+
     return (
-        <div className="cuttingWorker-table">
+        <div className="qc-table">
             <ToastContainer />
-            <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
-            {Array.isArray(cuttingWorker) && cuttingWorker.length > 0 ? (
-                <table className="cuttingWorker-table">
+            <input
+                type="text"
+                placeholder="Search by Style Name"
+                onChange={handleSearch}
+                value={searchQuery}
+            />
+            {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
+                <table className="qc-table">
                     <thead>
                         <tr>
                             <th>SRF No.</th>
@@ -82,8 +93,10 @@ const CuttingWorker = () => {
                             <th>Total Quantity</th>
                             <th>Work Assigned To</th>
                             <th>Status</th>
+
                             <th>Comment By Manager</th>
                             <th>Remark</th>
+                            {/* New column for Comment */}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -92,29 +105,31 @@ const CuttingWorker = () => {
                             <tr key={index}>
                                 <td>{item.srfNo}</td>
                                 <td>{item.styleName}</td>
-                                <td>{item.days || "2"}</td>
+                                <td>{item.days}</td>
                                 <td>{item.assignDate}</td>
                                 <td>{item.endDate}</td>
                                 <td>{item.numberOfPcs}</td>
                                 <td>
                                     {item.WorkAssigned.map((work, idx) => (
                                         <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
+                                            {work.department === "FABRIC CUTTING" && (
                                                 work.NameOfPerson
                                             )}
                                         </div>
                                     ))}
+
                                 </td>
                                 <td>
                                     {item.WorkAssigned.map((work, idx) => (
                                         <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
+                                            {work.department === "FABRIC CUTTING" && (
                                                 work.stauts
                                             )}
                                         </div>
                                     ))}
+
                                 </td>
-                                <td>
+                                <td> {/* New column for Comment */}
                                     {item.WorkAssigned.map((work, idx) => (
                                         <div key={idx}>
                                             {work.Comment}
@@ -124,7 +139,7 @@ const CuttingWorker = () => {
                                 <td>
                                     {item.WorkAssigned.map((work, idx) => (
                                         <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
+                                            {work.department === "FABRIC CUTTING" && (
                                                 work.Reviews || "No Remark"
                                             )}
                                         </div>
@@ -135,15 +150,16 @@ const CuttingWorker = () => {
                                         <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
                                     ))}
                                 </td>
+                                {/* Add more table cells for other details */}
                             </tr>
                         ))}
                     </tbody>
                 </table>
             ) : (
-                <div className="cuttingWorker-message">{cuttingWorker}</div>
+                <div className="qc-message">{FinishingWork}</div>
             )}
         </div>
     );
 };
 
-export default CuttingWorker;
+export default FabricCuttingWorker;
