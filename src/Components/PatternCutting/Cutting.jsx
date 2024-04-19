@@ -15,7 +15,7 @@ const Cutting = () => {
     const [work, setNoWork] = useState()
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
+            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -41,15 +41,16 @@ const Cutting = () => {
         <>
             {User.department === "PATTERN CUTTING" && User.userName.includes("Manager") ? (
                 <section className='trimDepartment-section'>
-                    <input
+                    
+                    <div className="container">
+                        <div className="heading">
+                            <span>PATTERN CUTTING-DEPARTMENT (Head) </span>
+                            <input
                         type="text"
                         placeholder="Search by Style Name"
                         onChange={handleSearch}
                         value={searchQuery}
                     />
-                    <div className="container">
-                        <div className="heading">
-                            <span>PATTERN CUTTING-DEPARTMENT (Head) </span>
                         </div>
                         <div className="main-detail">
                             <div className="table-parent">
@@ -77,7 +78,6 @@ const Cutting = () => {
                                                     <td>{item.assignDate}</td>
                                                     <td>{item.endDate}</td>
                                                     <td>{item.numberOfPcs}</td>
-                                                    {/* //assignworker */}
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>

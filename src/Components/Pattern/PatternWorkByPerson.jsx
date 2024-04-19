@@ -13,7 +13,7 @@ const PatternWorkByPerson = () => {
 
     const fetchDataForQc = async () => {
         try {
-            const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
+            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -54,7 +54,7 @@ const PatternWorkByPerson = () => {
             Reviews: remark
         };
         try {
-            const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
+            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
                 status
             }, {
                 headers: {
@@ -69,89 +69,187 @@ const PatternWorkByPerson = () => {
     };
 
     return (
-        <div className="pattern-work-by-person-container">
-            <ToastContainer />
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Search by Style Name"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
-            {Array.isArray(filteredPatternWork) && filteredPatternWork.length > 0 ? (
-                <table className="pattern-work-table">
-                    <thead>
-                        <tr>
-                            <th>SRF No.</th>
-                            <th>Style Name</th>
-                            <th>Days</th>
-                            <th>Task Start Date</th>
-                            <th>Task End Date</th>
-                            <th>Total Quantity</th>
-                            <th>Work Assigned To</th>
-                            <th>Status</th>
-                            <th>Comment By Manager</th>
-                            <th>Remark</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredPatternWork.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.srfNo}</td>
-                                <td>{item.styleName}</td>
-                                <td>{item.days}</td>
-                                <td>{item.assignDate}</td>
-                                <td>{item.endDate}</td>
-                                <td>{item.numberOfPcs}</td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN MAKING" && (
-                                                work.NameOfPerson
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN MAKING" && (
-                                                work.stauts
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.Comment}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN MAKING" && (
-                                                work.Reviews || "No Remark"
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((works, idxz) => (
-                                        <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
-                                    ))}
-                                </td>
+        <>
+
+            <section className='trimDepartment-section'>
+                <ToastContainer />
+                <div className="container">
+                    <div className="heading">
+                        {/* <span>Fabric  Department</span> */}
+                        <input
+                            type="text"
+                            placeholder="Search by Style Name"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <div className="main-detail">
+                        <div className="table-parent">
+                            <div className="table-wrapper">
+                                {Array.isArray(filteredPatternWork) && filteredPatternWork.length > 0 ? (
+                                    <table className="pattern-work-table">
+                                        <thead>
+                                            <tr>
+                                                <th>SRF No.</th>
+                                                <th>Style Name</th>
+                                                <th>Days</th>
+                                                <th>Task Start Date</th>
+                                                <th>Task End Date</th>
+                                                <th>Total Quantity</th>
+                                                <th>Work Assigned To</th>
+                                                <th>Status</th>
+                                                <th>Comment By Manager</th>
+                                                <th>Remark</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {filteredPatternWork.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{item.srfNo}</td>
+                                                    <td>{item.styleName}</td>
+                                                    <td>{item.days}</td>
+                                                    <td>{item.assignDate}</td>
+                                                    <td>{item.endDate}</td>
+                                                    <td>{item.numberOfPcs}</td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    work.NameOfPerson
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    work.stauts
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.Comment}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    work.Reviews || "No Remark"
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((works, idxz) => (
+                                                            <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                                                        ))}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                ) : (
+                                    <div className="qc-message">{patternWorkByPerson}</div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* <div className="pattern-work-by-person-container">
+                <ToastContainer />
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search by Style Name"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                {Array.isArray(filteredPatternWork) && filteredPatternWork.length > 0 ? (
+                    <table className="pattern-work-table">
+                        <thead>
+                            <tr>
+                                <th>SRF No.</th>
+                                <th>Style Name</th>
+                                <th>Days</th>
+                                <th>Task Start Date</th>
+                                <th>Task End Date</th>
+                                <th>Total Quantity</th>
+                                <th>Work Assigned To</th>
+                                <th>Status</th>
+                                <th>Comment By Manager</th>
+                                <th>Remark</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <div className="qc-message">{patternWorkByPerson}</div>
-            )}
-        </div>
+                        </thead>
+                        <tbody>
+                            {filteredPatternWork.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.srfNo}</td>
+                                    <td>{item.styleName}</td>
+                                    <td>{item.days}</td>
+                                    <td>{item.assignDate}</td>
+                                    <td>{item.endDate}</td>
+                                    <td>{item.numberOfPcs}</td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN MAKING" && (
+                                                    work.NameOfPerson
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN MAKING" && (
+                                                    work.stauts
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.Comment}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN MAKING" && (
+                                                    work.Reviews || "No Remark"
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((works, idxz) => (
+                                            <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                                        ))}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="qc-message">{patternWorkByPerson}</div>
+                )}
+            </div> */}
+        </>
     );
 };
 

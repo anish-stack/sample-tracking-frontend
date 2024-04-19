@@ -12,12 +12,12 @@ const SewingPerson = () => {
 
   const fetchDataForQc = async () => {
     try {
-      const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
+      const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log("sewing",res.data.data)
+      console.log("sewing", res.data.data)
       if (res.data.data.length === 0) {
         setSewingPerson("No work assigned for the trim department person.");
       } else {
@@ -39,122 +39,219 @@ const SewingPerson = () => {
 
     // If the user cancels the prompt or enters an empty string, do nothing
     if (!remark) return;
-    
+
     const status = {
-        comment: "Completed",
-        whichDepartment: user.department, // Corrected typo in department
-        PersonName: trimPersonName,
-        Reviews: remark // Include the remark in the status object
+      comment: "Completed",
+      whichDepartment: user.department, // Corrected typo in department
+      PersonName: trimPersonName,
+      Reviews: remark // Include the remark in the status object
     };
-console.log(status)
+    console.log(status)
     try {
-        const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
-            status
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
+        status
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-        toast.success("Work Updated");
-        console.log("Updated", response);
-        fetchDataForQc();
+      toast.success("Work Updated");
+      console.log("Updated", response);
+      fetchDataForQc();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
-const handleSearch = (e) => {
-  const keyword = e.target.value.toLowerCase();
-  const filtered = SewingPerson.filter(item =>
+  const handleSearch = (e) => {
+    const keyword = e.target.value.toLowerCase();
+    const filtered = SewingPerson.filter(item =>
       item.styleName.toLowerCase().includes(keyword)
-  );
-  setFilteredStyle(filtered);
-};
+    );
+    setFilteredStyle(filtered);
+  };
   return (
-    <div className="qc-table">
-      
-      <ToastContainer/>
-      <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
 
-      {Array.isArray(SewingPerson) && SewingPerson.length > 0 ? (
-        <table className="qc-table">
-          <thead>
-            <tr>
-              <th>SRF No.</th>
-              <th>Style Name</th>
-              <th>Days</th>
-              <th>Task Start Date</th>
-              <th>Task End Date</th>
-              <th>Total Quantity</th>
-              <th>Work Assigned To</th>
-              <th>Status</th>
-              
-              <th>Comment By Manager</th>
-              <th>Remark</th>
- {/* New column for Comment */}
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {SewingPerson.map((item, index) => (
-              <tr key={index}>
-                <td>{item.srfNo}</td>
-                <td>{item.styleName}</td>
-                <td>{item.days}</td>
-                <td>{item.assignDate}</td>
-                <td>{item.endDate}</td>
-                <td>{item.numberOfPcs}</td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "SEWING" && (
-                        work.NameOfPerson
-                      )}
-                    </div>
-                  ))}
+    <>
 
-                </td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "SEWING" && (
-                        work.stauts
-                      )}
-                    </div>
-                  ))}
+      <section className='trimDepartment-section'>
+        <ToastContainer />
+        <div className="container">
+          <div className="heading">
+            <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+          </div>
+          <div className="main-detail">
+          <div className="table-parent">
+          <div className="table-wrapper">
+          {Array.isArray(SewingPerson) && SewingPerson.length > 0 ? (
+          <table className="qc-table">
+            <thead>
+              <tr>
+                <th>SRF No.</th>
+                <th>Style Name</th>
+                <th>Days</th>
+                <th>Task Start Date</th>
+                <th>Task End Date</th>
+                <th>Total Quantity</th>
+                <th>Work Assigned To</th>
+                <th>Status</th>
 
-                </td>
-                <td> {/* New column for Comment */}
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.Comment}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "SEWING" && (
-                        work.Reviews || "No Remark"
-                      )}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {item.WorkAssigned.map((works, idxz) => (
-                    <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
-                  ))}
-                </td>
-                {/* Add more table cells for other details */}
+                <th>Comment By Manager</th>
+                <th>Remark</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="qc-message">{SewingPerson}</div>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {SewingPerson.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.srfNo}</td>
+                  <td>{item.styleName}</td>
+                  <td>{item.days}</td>
+                  <td>{item.assignDate}</td>
+                  <td>{item.endDate}</td>
+                  <td>{item.numberOfPcs}</td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.NameOfPerson
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.stauts
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.Comment}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.Reviews || "No Remark"
+                        )}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((works, idxz) => (
+                      <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                    ))}
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="qc-message">{SewingPerson}</div>
+        )}
+          </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      {/* <div className="qc-table">
+
+        <ToastContainer />
+        <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+
+        {Array.isArray(SewingPerson) && SewingPerson.length > 0 ? (
+          <table className="qc-table">
+            <thead>
+              <tr>
+                <th>SRF No.</th>
+                <th>Style Name</th>
+                <th>Days</th>
+                <th>Task Start Date</th>
+                <th>Task End Date</th>
+                <th>Total Quantity</th>
+                <th>Work Assigned To</th>
+                <th>Status</th>
+
+                <th>Comment By Manager</th>
+                <th>Remark</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {SewingPerson.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.srfNo}</td>
+                  <td>{item.styleName}</td>
+                  <td>{item.days}</td>
+                  <td>{item.assignDate}</td>
+                  <td>{item.endDate}</td>
+                  <td>{item.numberOfPcs}</td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.NameOfPerson
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.stauts
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.Comment}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "SEWING" && (
+                          work.Reviews || "No Remark"
+                        )}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((works, idxz) => (
+                      <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                    ))}
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="qc-message">{SewingPerson}</div>
+        )}
+      </div> */}
+    </>
   );
 };
 

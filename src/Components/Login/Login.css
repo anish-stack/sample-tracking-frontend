@@ -22,7 +22,7 @@
     font-size: 25px;
     font-weight: 700;
     text-transform: uppercase;
-    color: cadetblue;
+    color: #ED7042;
 }
 
 .login-section .container .main-container{
@@ -36,8 +36,8 @@
 
     background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 0px );
--webkit-backdrop-filter: blur( 0px );
+/* backdrop-filter: blur( 0px );
+-webkit-backdrop-filter: blur( 0px ); */
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
@@ -46,9 +46,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
-    
+    gap: 10px;  
 }
 .msg{
     width: 50%;
@@ -74,7 +72,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .login-section .container .main-container form button{
-    background-color: cadetblue;
+    background-color: #ED7042;
     border: none;
     color: white;
     height: 40px;
@@ -90,6 +88,13 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
     .msg{
         width: 100%;
+    }
+
+    .login-section .container .main-container form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;  
     }
     
 }

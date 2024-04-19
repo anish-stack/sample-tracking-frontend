@@ -11,7 +11,7 @@ function TNA() {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`http://localhost:8010/api/v1/get-All-styles`, {
+            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/get-All-styles`, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem('token')}`
                 }
@@ -32,7 +32,7 @@ function TNA() {
         if (remark !== null) {
             console.log("Remark:", remark);
             try {
-                const res = await axios.post(`http://localhost:8010/api/v1/remark/${id}`, { remark }, {
+                const res = await axios.post(`https://sample-tracking.onrender.com/api/v1/remark/${id}`, { remark }, {
                     headers: {
                         Authorization: `Bearer ${sessionStorage.getItem('token')}`
                     }

@@ -1,11 +1,13 @@
 .homePage-section{
     width: 100%;
+    height: 100%;
 }
 
 .homePage-section .container{
-    height: 89vh;
-    max-width: 1920px;
-    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    /* max-width: 1920px;
+    margin: 0 auto; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,6 +17,23 @@
     font-size: 26px;
     font-variant: small-caps;
 }
+
+.homePage-section .container .user .userprofile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.homePage-section .container .user .userprofile .info .nameofuser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
 .container-home{
     display: flex;
     width: 100%;
@@ -22,10 +41,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 .home-imgs{
-    width: 700px;
+    width: 50%;
 }
 .home-imgs img {
     width: 100%;
@@ -34,7 +54,7 @@
     object-position: center;
 }
 .container-home h3{
-    font-size: 4rem;
+    font-size: 3rem;
     font-variant: small-caps;
 }
 

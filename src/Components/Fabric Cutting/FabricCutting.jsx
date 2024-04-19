@@ -13,7 +13,7 @@ const FABRICUTTING = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
+            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -42,14 +42,15 @@ const FABRICUTTING = () => {
                     <div className="container">
                         <div className="heading">
                             <span>FABRIC CUTTING-DEPARTMENT (Head) </span>
-                        </div>
-                        <div className="main-detail">
                             <input
                                         type="text"
                                         placeholder="Search by Style Name"
                                         onChange={handleSearch}
                                         value={searchQuery}
                                     />
+                        </div>
+                        <div className="main-detail">
+                            
                             <div className="table-parent">
                                 <div className="table-wrapper">
                                     <table>

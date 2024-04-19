@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-    const BackendRoute = "http://localhost:8010";
+    const BackendRoute = "https://sample-tracking.onrender.com";
 
     // Define state variables for form fields and loading state
     const [formData, setFormData] = useState({

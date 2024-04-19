@@ -54,7 +54,7 @@ function Home() {
     }
     const user = sessionStorage.getItem('user');
     const ParseUser = JSON.parse(user) || {};
-    
+
     return (
         <section className='home-main-container'>
             <div className="container">
@@ -63,6 +63,8 @@ function Home() {
                         <div className="container">
                             <div className="img">
                                 <img src="https://i.ibb.co/9WWZ6ph/Whats-App-Image-2024-04-14-at-17-38-21-4a5ad39e.jpg" className='img-logo' alt="" />
+
+                                <i onClick={handleIsMenuActive} className="ri-menu-line menu"></i>
                             </div>
                             <div className="ul-parent">
                                 <ul className='navbar'>
@@ -71,7 +73,6 @@ function Home() {
                                         ''
                                     ) : (
                                         <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/register'} >Register</Link>
-
                                     )}
                                     {token ? (
 
@@ -97,7 +98,7 @@ function Home() {
                                     {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/add-new-style'} >Add New Style</Link>
                                         <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing Style</Link> */}
                                     <Link to={'/primark-buyer'} onClick={handleIsBuyerActive} className='buyer-hover normal-link' >
-                                     Merchandising Department
+                                        Merchandising Department
                                     </Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing style</Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/profile'} >Profile</Link>
@@ -109,16 +110,15 @@ function Home() {
                 </div>
                 <div className="content-parent">
                     <div className="top-header">
-                        <div className="menu-parent">
+                        <div className="menu-parent hamburgur">
                             <i onClick={handleIsMenuActive} className="ri-menu-line menu"></i>
-                          
-                        </div>
-                        <div className='dep'>
-                        {ParseUser.department ? ParseUser.department : " "}
 
                         </div>
+                        <div className='dep'>
+                            {ParseUser.department ? ParseUser.department : " "}
+                        </div>
                         <div className="user">
-                        <img src="https://i.ibb.co/TP5qs6w/pngwing-com-2.png" width={60} alt="pngwing-com-2" border="0"/>
+                            <img src="https://i.ibb.co/TP5qs6w/pngwing-com-2.png" alt="pngwing-com-2" border="0" />
                         </div>
                     </div>
                     <div className="bottom">
@@ -135,7 +135,7 @@ function Home() {
                             <Route path='/fabric-cuting' element={<FABRICUTTING />} />
                             <Route path='/fabric-cuting-worker' element={<FabricCuttingWorker />} />
 
-                          
+
                             <Route path='/sewing-department' element={<Sewing />} />
                             <Route path='/Pattern-Work' element={<PatternWorkByPerson />} />
                             <Route path='/finishing-department' element={<Finishing />} />
@@ -147,7 +147,7 @@ function Home() {
                             <Route path='/Assign/:id' element={<AssignWork />} />
                             <Route path='/tna/:id' element={<TNA />} />
                             <Route path='/add-new-style' element={<AddNewStyle />} />
-                    
+
                         </Routes>
                     </div>
                 </div>
