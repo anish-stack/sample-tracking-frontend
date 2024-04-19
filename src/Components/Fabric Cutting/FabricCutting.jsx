@@ -35,6 +35,36 @@ const FABRICUTTING = () => {
     const filteredStyle = style.filter((item) =>
         item.styleName.toLowerCase().includes(searchQuery)
     );
+    function toLocalDateString(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
+    function MakeEndDate(assignDate) {
+        const date = new Date(assignDate);
+        const endDate = new Date(date.getTime() + 1 * 24 * 60 * 60 * 1000); // Adding two days worth of milliseconds
+        return endDate.toLocaleDateString();
+    }
+    function CountDelayAfterEndDate(assignDate) {
+        const Endate = MakeEndDate(assignDate);
+        console.log("End Date:", Endate);
+
+        const TodayDate = new Date();
+        console.log("Today's Date:", TodayDate);
+
+        // Convert both dates to UTC to ensure consistent comparison
+        const utcEndDate = new Date(Endate);
+        const utcTodayDate = new Date(TodayDate.toUTCString());
+
+        if (utcTodayDate.getTime() >= utcEndDate.getTime()) {
+            // Calculate delay after EndDate and return delay days
+            const delayMilliseconds = utcTodayDate.getTime() - utcEndDate.getTime();
+            const delayDays = Math.floor(delayMilliseconds / (1000 * 60 * 60 * 24));
+            console.log("Delay Days:", delayDays);
+            return delayDays;
+        }
+        return 0; // Return 0 if today's date is not greater than or equal to end date
+    }
+
     return (
         <>
             {User.department === "FABRIC CUTTING" && User.userName.includes("Manager") ? (
@@ -43,14 +73,14 @@ const FABRICUTTING = () => {
                         <div className="heading">
                             <span>FABRIC CUTTING-DEPARTMENT (Head) </span>
                             <input
-                                        type="text"
-                                        placeholder="Search by Style Name"
-                                        onChange={handleSearch}
-                                        value={searchQuery}
-                                    />
+                                type="text"
+                                placeholder="Search by Style Name"
+                                onChange={handleSearch}
+                                value={searchQuery}
+                            />
                         </div>
                         <div className="main-detail">
-                            
+
                             <div className="table-parent">
                                 <div className="table-wrapper">
                                     <table>
@@ -61,6 +91,8 @@ const FABRICUTTING = () => {
                                                 <th>Days</th>
                                                 <th>Task Start Date</th>
                                                 <th>Task End Date</th>
+                                                <th>Delay</th>
+
                                                 <th>Total Quantity</th>
                                                 <th>Action By Worker</th>
                                                 <th>Work Assigned To</th>
@@ -73,8 +105,20 @@ const FABRICUTTING = () => {
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
                                                     <td>2</td>
-                                                    <td>{item.assignDate}</td>
-                                                    <td>{item.endDate}</td>
+
+                                                    <td>
+                                                        {toLocalDateString(item.assignDate)}
+                                                    </td>
+                                                    {/* <td>{toLocalDateString(item.assignDate)}</td> */}
+                                                    <td>
+                                                        {MakeEndDate(item.assignDate)}
+                                                    </td>
+                                                    <td>
+
+                                                        {CountDelayAfterEndDate(item.assignDate)}
+
+
+                                                    </td>
                                                     <td>{item.numberOfPcs}</td>
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (

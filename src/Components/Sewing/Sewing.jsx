@@ -33,6 +33,36 @@ const Qc = () => {
     const filteredStyle = style.filter((item) =>
         item.styleName.toLowerCase().includes(searchQuery)
     );
+    function toLocalDateString(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
+    function MakeEndDate(assignDate) {
+        const date = new Date(assignDate);
+        const endDate = new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000); // Adding two days worth of milliseconds
+        return endDate.toLocaleDateString();
+    }
+    function CountDelayAfterEndDate(assignDate) {
+        const Endate = MakeEndDate(assignDate);
+        console.log("End Date:", Endate);
+    
+        const TodayDate = new Date();
+        console.log("Today's Date:", TodayDate);
+    
+        // Convert both dates to UTC to ensure consistent comparison
+        const utcEndDate = new Date(Endate);
+        const utcTodayDate = new Date(TodayDate.toUTCString());
+    
+        if (utcTodayDate.getTime() >= utcEndDate.getTime()) {
+            // Calculate delay after EndDate and return delay days
+            const delayMilliseconds = utcTodayDate.getTime() - utcEndDate.getTime();
+            const delayDays = Math.floor(delayMilliseconds / (1000 * 60 * 60 * 24));
+            console.log("Delay Days:", delayDays);
+            return delayDays;
+        }
+        return 0; 
+    }
+    
     return (
         <>
             {User.department === "SEWING" && User.userName.includes("Manager") ? (
@@ -59,6 +89,7 @@ const Qc = () => {
                                                 <th>Days</th>
                                                 <th>Task Start Date</th>
                                                 <th>Task End Date</th>
+                                                <th>Delay</th>
                                                 <th>Total Quantity</th>
                                                 <th>Action By Worker</th>
                                                 <th>Work Assigned To</th>
@@ -71,9 +102,10 @@ const Qc = () => {
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
                                                     <td>2</td>
-                                                    <td>{item.assignDate}</td>
-                                                    <td>{item.endDate}</td>
-                                                    <td>{item.numberOfPcs}</td>
+                                                    <td>{toLocalDateString(item.assignDate)}</td>
+                                                    <td>{MakeEndDate(item.assignDate)}</td>
+                                                    <td>{CountDelayAfterEndDate(item.assignDate)}</td>
+                                                    < td>{item.numberOfPcs}</td>
                                                     <td>
                                                         {item.WorkAssigned && item.WorkAssigned.length > 0 ? (
                                                             <ul>

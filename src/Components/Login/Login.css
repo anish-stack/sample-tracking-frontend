@@ -28,10 +28,11 @@
 .login-section .container .main-container{
     width: 50%;
     display: flex;
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 4rem 3rem;
     gap: 20px;
 
     background: rgba( 255, 255, 255, 0.25 );

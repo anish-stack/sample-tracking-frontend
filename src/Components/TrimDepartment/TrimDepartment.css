@@ -14,7 +14,7 @@
     gap: 10px;
 }
 .btn {
-    background-color: #4caf50; /* Green */
+    background-color: #f5731d; /* Green */
     border: none;
     color: white;
     padding: 10px 20px;
@@ -27,7 +27,7 @@
   }
   
   .del-btn {
-    background-color: #f44336; /* Red */
+    background-color: #ED7042; /* Red */
     border: none;
     color: white;
     padding: 10px 20px;
@@ -42,7 +42,7 @@
 .tna{
 padding: 0.3rem 1.5rem;
 color: aliceblue;
-background-color: #3cf436;
+background-color: #ED7042;
 }
 
 .trimDepartment-section .container .heading {

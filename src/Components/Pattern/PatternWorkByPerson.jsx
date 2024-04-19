@@ -18,11 +18,13 @@ const PatternWorkByPerson = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log(res.data)
             if (res.data.data.length === 0) {
                 setPatternWorkByPerson("No work assigned for the trim department person.");
             } else {
                 setPatternWorkByPerson(res.data.data);
                 setFilteredPatternWork(res.data.data);
+                console.log(filteredPatternWork)
             }
         } catch (error) {
             console.log("Trim-Person Error:", error);
@@ -68,6 +70,39 @@ const PatternWorkByPerson = () => {
         }
     };
 
+    function toLocalDateString(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
+    function MakeEndDate(assignDate) {
+        const date = new Date(assignDate);
+        const endDate = new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000); // Adding two days worth of milliseconds
+        return endDate.toLocaleDateString();
+    }
+    function CountDelayAfterEndDate(assignDate) {
+        const Endate = MakeEndDate(assignDate);
+        // console.log("End Date:", Endate);
+
+        const TodayDate = new Date();
+        // console.log("Today's Date:", TodayDate);
+
+        // Convert both dates to UTC to ensure consistent comparison
+        const utcEndDate = new Date(Endate);
+        const utcTodayDate = new Date(TodayDate.toUTCString());
+
+        if (utcTodayDate.getTime() >= utcEndDate.getTime()) {
+            // Calculate delay after EndDate and return delay days
+            const delayMilliseconds = utcTodayDate.getTime() - utcEndDate.getTime();
+            const delayDays = Math.floor(delayMilliseconds / (1000 * 60 * 60 * 24));
+            console.log("Delay Days:", delayDays);
+            return delayDays;
+        }
+        return 0; // Return 0 if today's date is not greater than or equal to end date
+    }
+
+
+
+
     return (
         <>
 
@@ -75,7 +110,7 @@ const PatternWorkByPerson = () => {
                 <ToastContainer />
                 <div className="container">
                     <div className="heading">
-                        {/* <span>Fabric  Department</span> */}
+                        <span></span>
                         <input
                             type="text"
                             placeholder="Search by Style Name"
@@ -95,6 +130,7 @@ const PatternWorkByPerson = () => {
                                                 <th>Days</th>
                                                 <th>Task Start Date</th>
                                                 <th>Task End Date</th>
+                                                <th>Delay</th>
                                                 <th>Total Quantity</th>
                                                 <th>Work Assigned To</th>
                                                 <th>Status</th>
@@ -108,9 +144,35 @@ const PatternWorkByPerson = () => {
                                                 <tr key={index}>
                                                     <td>{item.srfNo}</td>
                                                     <td>{item.styleName}</td>
-                                                    <td>{item.days}</td>
-                                                    <td>{item.assignDate}</td>
-                                                    <td>{item.endDate}</td>
+                                                    <td>{item.days || "2"}</td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    toLocalDateString(work.WorkAssignDate)
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    {/* <td>{toLocalDateString(item.assignDate)}</td> */}
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    MakeEndDate(work.WorkAssignDate)
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>
+                                                        {item.WorkAssigned.map((work, idx) => (
+                                                            <div key={idx}>
+                                                                {work.department === "PATTERN MAKING" && (
+                                                                    CountDelayAfterEndDate(work.WorkAssignDate)
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
                                                     <td>{item.numberOfPcs}</td>
                                                     <td>
                                                         {item.WorkAssigned.map((work, idx) => (

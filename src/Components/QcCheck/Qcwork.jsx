@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const Qcwork = () => {
   const [qcWork, setQcWork] = useState([]);
   const [filteredStyle, setFilteredStyle] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // Add searchQuery state
   const token = sessionStorage.getItem('token');
   const users = sessionStorage.getItem('user');
   const user = JSON.parse(users);
@@ -64,8 +65,38 @@ const Qcwork = () => {
       console.log(error);
     }
   };
+  function toLocalDateString(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+}
+function MakeEndDate(assignDate) {
+    const date = new Date(assignDate);
+    const endDate = new Date(date.getTime() + 1 * 24 * 60 * 60 * 1000); // Adding two days worth of milliseconds
+    return endDate.toLocaleDateString();
+}
+function CountDelayAfterEndDate(assignDate) {
+    const Endate = MakeEndDate(assignDate);
+    console.log("End Date:", Endate);
+
+    const TodayDate = new Date();
+    console.log("Today's Date:", TodayDate);
+
+    // Convert both dates to UTC to ensure consistent comparison
+    const utcEndDate = new Date(Endate);
+    const utcTodayDate = new Date(TodayDate.toUTCString());
+
+    if (utcTodayDate.getTime() >= utcEndDate.getTime()) {
+        // Calculate delay after EndDate and return delay days
+        const delayMilliseconds = utcTodayDate.getTime() - utcEndDate.getTime();
+        const delayDays = Math.floor(delayMilliseconds / (1000 * 60 * 60 * 24));
+        console.log("Delay Days:", delayDays);
+        return delayDays;
+    }
+    return 0; // Return 0 if today's date is not greater than or equal to end date
+}
   const handleSearch = (e) => {
     const keyword = e.target.value.toLowerCase();
+    setSearchQuery(keyword); // Update searchQuery state
     const filtered = qcWork.filter(item =>
       item.styleName.toLowerCase().includes(keyword)
     );
@@ -74,7 +105,6 @@ const Qcwork = () => {
 
   return (
     <>
-
       <section className='trimDepartment-section'>
         <ToastContainer />
         <div className="container">
@@ -98,12 +128,12 @@ const Qcwork = () => {
                         <th>Days</th>
                         <th>Task Start Date</th>
                         <th>Task End Date</th>
+                        <th>Delay</th>
                         <th>Total Quantity</th>
                         <th>Work Assigned To</th>
                         <th>Status</th>
                         <th>Remark</th>
-
-                        <th>Comment By Manager</th> 
+                        <th>Comment By Manager</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -112,9 +142,36 @@ const Qcwork = () => {
                         <tr key={index}>
                           <td>{item.srfNo}</td>
                           <td>{item.styleName}</td>
-                          <td>{item.days}</td>
-                          <td>{item.assignDate}</td>
-                          <td>{item.endDate}</td>
+                          <td>1</td>
+
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  toLocalDateString(work.WorkAssignDate)
+                                )}
+                              </div>
+                            ))}
+                          </td>
+                          {/* <td>{toLocalDateString(item.assignDate)}</td> */}
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  MakeEndDate(work.WorkAssignDate)
+                                )}
+                              </div>
+                            ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  CountDelayAfterEndDate(work.WorkAssignDate)
+                                )}
+                              </div>
+                            ))}
+                          </td>
                           <td>{item.numberOfPcs}</td>
                           <td>
                             {item.WorkAssigned.map((work, idx) => (
@@ -124,7 +181,6 @@ const Qcwork = () => {
                                 )}
                               </div>
                             ))}
-
                           </td>
                           <td>
                             {item.WorkAssigned.map((work, idx) => (
@@ -134,7 +190,6 @@ const Qcwork = () => {
                                 )}
                               </div>
                             ))}
-
                           </td>
                           <td>
                             {item.WorkAssigned.map((work, idx) => (
@@ -169,94 +224,6 @@ const Qcwork = () => {
           </div>
         </div>
       </section>
-
-
-
-
-      {/* <div className="qc-table">
-      <input
-        type="text"
-        placeholder="Search by Style Name"
-        onChange={handleSearch}
-        value={searchQuery}
-      />
-      <ToastContainer />
-      {Array.isArray(qcWork) && qcWork.length > 0 ? (
-        <table className="qc-table">
-          <thead>
-            <tr>
-              <th>SRF No.</th>
-              <th>Style Name</th>
-              <th>Days</th>
-              <th>Task Start Date</th>
-              <th>Task End Date</th>
-              <th>Total Quantity</th>
-              <th>Work Assigned To</th>
-              <th>Status</th>
-              <th>Remark</th>
-
-              <th>Comment By Manager</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStyle.map((item, index) => (
-              <tr key={index}>
-                <td>{item.srfNo}</td>
-                <td>{item.styleName}</td>
-                <td>{item.days}</td>
-                <td>{item.assignDate}</td>
-                <td>{item.endDate}</td>
-                <td>{item.numberOfPcs}</td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "QC CHECK" && (
-                        work.NameOfPerson
-                      )}
-                    </div>
-                  ))}
-
-                </td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "QC CHECK" && (
-                        work.stauts
-                      )}
-                    </div>
-                  ))}
-
-                </td>
-                <td> 
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.Comment}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "QC CHECK" && (
-                        work.Reviews || "No Remark"
-                      )}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {item.WorkAssigned.map((works, idxz) => (
-                    <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="qc-message">{qcWork}</div>
-      )}
-    </div> */}
     </>
   );
 };

@@ -9,7 +9,11 @@
     flex-direction: column;
     gap: 10px;
 }
-
+.approved{
+    padding: 10px;
+    background-color: green;
+    color: white!important;
+}
 .tna-section .container .heading {
     width: 100%;
     text-align: center;

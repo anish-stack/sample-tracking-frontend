@@ -82,10 +82,8 @@ function ExistingStyle() {
     return (
         <section className='existingStyle-section'>
             <div className="container">
-                <div className="heading">
+                <div className="heading extra">
                     <span>Existing Style</span>
-                </div>
-                <div className="search-bar">
                     <input
                         type="text"
                         placeholder="Search by Style Name"
@@ -93,6 +91,7 @@ function ExistingStyle() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
+               
                 <div className="main-detail">
                     <div className="table-parent">
                         <div className="table-wrapper">

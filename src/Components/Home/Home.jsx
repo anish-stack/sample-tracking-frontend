@@ -101,7 +101,7 @@ function Home() {
                                         Merchandising Department
                                     </Link>
                                     <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/existing-style'} >Existing style</Link>
-                                    <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/profile'} >Profile</Link>
+                                    {/* <Link className='normal-link' onClick={handleIsMenuDeActive} to={'/profile'} >Profile</Link> */}
                                 </ul>
                             </div>
                         </div>
