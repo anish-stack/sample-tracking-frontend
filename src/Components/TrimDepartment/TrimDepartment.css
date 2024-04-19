@@ -1,11 +1,15 @@
 .trimDepartment-section {
     width: 100%;
+    height: 100%;
 }
 
 .trimDepartment-section .container {
     width: 100%;
+    height: 90%;
     padding: 10px 0px;
     display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 10px;
 }
@@ -43,7 +47,16 @@ background-color: #3cf436;
 
 .trimDepartment-section .container .heading {
     width: 100%;
+    /* height: 100%; */
+    padding: 0px 10px;
+    padding-top: 10px;
     text-align: center;
+
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+
+
 }
 
 .trimDepartment-section .container .heading span {
@@ -51,27 +64,40 @@ background-color: #3cf436;
     font-weight: 700;
 }
 
+/* .trimDepartment-section .container .input-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
 .trimDepartment-section .container .main-detail {
     width: 100%;
+    height: 100%;
 }
 
 .trimDepartment-section .container .main-detail .table-parent {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
+    /* display: flex; */
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* flex-direction: column; */
+    /* align-items: flex-start;
+    justify-content: flex-start; */
 }
 
 .trimDepartment-section .container .main-detail .table-parent .table-wrapper {
     /* width: 100%; */
+    /* height: 100%; */
     overflow-x: auto; 
-    max-height: 400px; 
+    max-height: 100%; 
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
 .trimDepartment-section .container .main-detail .table-parent table {
     width: 100%;
+    height: 100%;
 }
 
 .trimDepartment-section .container .main-detail .table-parent table,
@@ -92,4 +118,47 @@ background-color: #3cf436;
 
 .trimDepartment-section .container .main-detail .table-parent td {
     color: rgb(103, 103, 103);
+}
+
+
+@media (max-width:600px) {
+    .trimDepartment-section .container .heading {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        height: 40px;
+    }
+
+    .dep{
+        /* font-size: 2.5rem; */
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+    }
+
+    .home-main-container .container .content-parent .top-header .user{
+        /* font-size: 14px; */
+        width: 10%;
+    }
+
+    .trimDepartment-section .container .heading span{
+        text-align: center;
+    }
+
+    .trimDepartment-section .container {
+        height: 85%;
+    }
+
+    .trimDepartment-section .container .main-detail {
+        width: 100%;
+        height: 90%;
+    }
+
+
+
+    
 }

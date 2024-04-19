@@ -11,10 +11,10 @@ const CuttingWorker = () => {
 
     const fetchDataForCutting = async () => {
         try {
-          const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
             if (res.data.data.length === 0) {
                 setCuttingWorker("No work assigned for the cutting department person.");
@@ -43,7 +43,7 @@ const CuttingWorker = () => {
         };
 
         try {
-            const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
+            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
                 status
             }, {
                 headers: {
@@ -67,82 +67,172 @@ const CuttingWorker = () => {
     };
 
     return (
-        <div className="cuttingWorker-table">
-            <ToastContainer />
-            <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
-            {Array.isArray(cuttingWorker) && cuttingWorker.length > 0 ? (
-                <table className="cuttingWorker-table">
-                    <thead>
-                        <tr>
-                            <th>SRF No.</th>
-                            <th>Style Name</th>
-                            <th>Days</th>
-                            <th>Task Start Date</th>
-                            <th>Task End Date</th>
-                            <th>Total Quantity</th>
-                            <th>Work Assigned To</th>
-                            <th>Status</th>
-                            <th>Comment By Manager</th>
-                            <th>Remark</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredStyle.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.srfNo}</td>
-                                <td>{item.styleName}</td>
-                                <td>{item.days || "2"}</td>
-                                <td>{item.assignDate}</td>
-                                <td>{item.endDate}</td>
-                                <td>{item.numberOfPcs}</td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
-                                                work.NameOfPerson
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
-                                                work.stauts
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.Comment}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((work, idx) => (
-                                        <div key={idx}>
-                                            {work.department === "PATTERN CUTTING" && (
-                                                work.Reviews || "No Remark"
-                                            )}
-                                        </div>
-                                    ))}
-                                </td>
-                                <td>
-                                    {item.WorkAssigned.map((works, idxz) => (
-                                        <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
-                                    ))}
-                                </td>
+        <>
+            <section className='trimDepartment-section'>
+                <div className="container">
+                    <div className="heading">
+                        {/* <span>Pattern Cutting</span> */}
+                        <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+                    </div>
+                    <div className="main-detail">
+                    <div className="table-parent">
+                    <div className="table-wrapper">
+                    {Array.isArray(cuttingWorker) && cuttingWorker.length > 0 ? (
+                    <table className="cuttingWorker-table">
+                        <thead>
+                            <tr>
+                                <th>SRF No.</th>
+                                <th>Style Name</th>
+                                <th>Days</th>
+                                <th>Task Start Date</th>
+                                <th>Task End Date</th>
+                                <th>Total Quantity</th>
+                                <th>Work Assigned To</th>
+                                <th>Status</th>
+                                <th>Comment By Manager</th>
+                                <th>Remark</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <div className="cuttingWorker-message">{cuttingWorker}</div>
-            )}
-        </div>
+                        </thead>
+                        <tbody>
+                            {filteredStyle.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.srfNo}</td>
+                                    <td>{item.styleName}</td>
+                                    <td>{item.days || "2"}</td>
+                                    <td>{item.assignDate}</td>
+                                    <td>{item.endDate}</td>
+                                    <td>{item.numberOfPcs}</td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.NameOfPerson
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.stauts
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.Comment}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.Reviews || "No Remark"
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((works, idxz) => (
+                                            <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                                        ))}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="cuttingWorker-message">{cuttingWorker}</div>
+                )}
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* <div className="cuttingWorker-table">
+                <ToastContainer />
+                <input type="text" placeholder="Search by Style Name" onChange={handleSearch} />
+                {Array.isArray(cuttingWorker) && cuttingWorker.length > 0 ? (
+                    <table className="cuttingWorker-table">
+                        <thead>
+                            <tr>
+                                <th>SRF No.</th>
+                                <th>Style Name</th>
+                                <th>Days</th>
+                                <th>Task Start Date</th>
+                                <th>Task End Date</th>
+                                <th>Total Quantity</th>
+                                <th>Work Assigned To</th>
+                                <th>Status</th>
+                                <th>Comment By Manager</th>
+                                <th>Remark</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredStyle.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.srfNo}</td>
+                                    <td>{item.styleName}</td>
+                                    <td>{item.days || "2"}</td>
+                                    <td>{item.assignDate}</td>
+                                    <td>{item.endDate}</td>
+                                    <td>{item.numberOfPcs}</td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.NameOfPerson
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.stauts
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.Comment}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((work, idx) => (
+                                            <div key={idx}>
+                                                {work.department === "PATTERN CUTTING" && (
+                                                    work.Reviews || "No Remark"
+                                                )}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td>
+                                        {item.WorkAssigned.map((works, idxz) => (
+                                            <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                                        ))}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="cuttingWorker-message">{cuttingWorker}</div>
+                )}
+            </div> */}
+        </>
     );
 };
 

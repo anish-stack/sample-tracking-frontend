@@ -12,7 +12,7 @@ const FinishingWork = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const fetchDataForQc = async () => {
     try {
-      const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
+      const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -47,7 +47,7 @@ const FinishingWork = () => {
     };
     console.log(status)
     try {
-      const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
+      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
         status
       }, {
         headers: {
@@ -73,92 +73,188 @@ const FinishingWork = () => {
   );
 
   return (
-    <div className="qc-table">
-      <ToastContainer />
-      <input
-        type="text"
-        placeholder="Search by Style Name"
-        onChange={handleSearch}
-        value={searchQuery}
-      />
-      {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
-        <table className="qc-table">
-          <thead>
-            <tr>
-              <th>SRF No.</th>
-              <th>Style Name</th>
-              <th>Days</th>
-              <th>Task Start Date</th>
-              <th>Task End Date</th>
-              <th>Total Quantity</th>
-              <th>Work Assigned To</th>
-              <th>Status</th>
+    <>
+      <section className='trimDepartment-section'>
+        <ToastContainer />
+        <div className="container">
+          <div className="heading">
+            <input
+              type="text"
+              placeholder="Search by Style Name"
+              onChange={handleSearch}
+              value={searchQuery}
+            />
+          </div>
+          <div className="main-detail">
+            <div className="table-parent">
+              <div className="table-wrapper">
+                {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
+                  <table className="qc-table">
+                    <thead>
+                      <tr>
+                        <th>SRF No.</th>
+                        <th>Style Name</th>
+                        <th>Days</th>
+                        <th>Task Start Date</th>
+                        <th>Task End Date</th>
+                        <th>Total Quantity</th>
+                        <th>Work Assigned To</th>
+                        <th>Status</th>
 
-              <th>Comment By Manager</th>
-              <th>Remark</th>
-              {/* New column for Comment */}
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStyle.map((item, index) => (
-              <tr key={index}>
-                <td>{item.srfNo}</td>
-                <td>{item.styleName}</td>
-                <td>{item.days}</td>
-                <td>{item.assignDate}</td>
-                <td>{item.endDate}</td>
-                <td>{item.numberOfPcs}</td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "FINISHING" && (
-                        work.NameOfPerson
-                      )}
-                    </div>
-                  ))}
+                        <th>Comment By Manager</th>
+                        <th>Remark</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredStyle.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.srfNo}</td>
+                          <td>{item.styleName}</td>
+                          <td>{item.days}</td>
+                          <td>{item.assignDate}</td>
+                          <td>{item.endDate}</td>
+                          <td>{item.numberOfPcs}</td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "FINISHING" && (
+                                  work.NameOfPerson
+                                )}
+                              </div>
+                            ))}
 
-                </td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "FINISHING" && (
-                        work.stauts
-                      )}
-                    </div>
-                  ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "FINISHING" && (
+                                  work.stauts
+                                )}
+                              </div>
+                            ))}
 
-                </td>
-                <td> {/* New column for Comment */}
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.Comment}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {item.WorkAssigned.map((work, idx) => (
-                    <div key={idx}>
-                      {work.department === "FINISHING" && (
-                        work.Reviews || "No Remark"
-                      )}
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {item.WorkAssigned.map((works, idxz) => (
-                    <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
-                  ))}
-                </td>
-                {/* Add more table cells for other details */}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.Comment}
+                              </div>
+                            ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "FINISHING" && (
+                                  work.Reviews || "No Remark"
+                                )}
+                              </div>
+                            ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((works, idxz) => (
+                              <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                            ))}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="qc-message">{FinishingWork}</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* <div className="qc-table">
+        <ToastContainer />
+        <input
+          type="text"
+          placeholder="Search by Style Name"
+          onChange={handleSearch}
+          value={searchQuery}
+        />
+        {Array.isArray(FinishingWork) && FinishingWork.length > 0 ? (
+          <table className="qc-table">
+            <thead>
+              <tr>
+                <th>SRF No.</th>
+                <th>Style Name</th>
+                <th>Days</th>
+                <th>Task Start Date</th>
+                <th>Task End Date</th>
+                <th>Total Quantity</th>
+                <th>Work Assigned To</th>
+                <th>Status</th>
+
+                <th>Comment By Manager</th>
+                <th>Remark</th>
+                
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="qc-message">{FinishingWork}</div>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {filteredStyle.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.srfNo}</td>
+                  <td>{item.styleName}</td>
+                  <td>{item.days}</td>
+                  <td>{item.assignDate}</td>
+                  <td>{item.endDate}</td>
+                  <td>{item.numberOfPcs}</td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "FINISHING" && (
+                          work.NameOfPerson
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "FINISHING" && (
+                          work.stauts
+                        )}
+                      </div>
+                    ))}
+
+                  </td>
+                  <td> 
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.Comment}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((work, idx) => (
+                      <div key={idx}>
+                        {work.department === "FINISHING" && (
+                          work.Reviews || "No Remark"
+                        )}
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    {item.WorkAssigned.map((works, idxz) => (
+                      <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                    ))}
+                  </td>
+                  
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="qc-message">{FinishingWork}</div>
+        )}
+      </div> */}
+    </>
   );
 };
 

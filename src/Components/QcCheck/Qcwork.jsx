@@ -13,7 +13,7 @@ const Qcwork = () => {
 
   const fetchDataForQc = async () => {
     try {
-      const res = await axios.get(`http://localhost:8010/api/v1/qc/${trimPersonName}`, {
+      const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/qc/${trimPersonName}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -49,7 +49,7 @@ const Qcwork = () => {
     };
     console.log(status)
     try {
-      const response = await axios.post(`http://localhost:8010/api/v1/update-status-work/${id}`, {
+      const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-status-work/${id}`, {
         status
       }, {
         headers: {
@@ -67,13 +67,113 @@ const Qcwork = () => {
   const handleSearch = (e) => {
     const keyword = e.target.value.toLowerCase();
     const filtered = qcWork.filter(item =>
-        item.styleName.toLowerCase().includes(keyword)
+      item.styleName.toLowerCase().includes(keyword)
     );
     setFilteredStyle(filtered);
-};
+  };
 
   return (
-    <div className="qc-table">
+    <>
+
+      <section className='trimDepartment-section'>
+        <ToastContainer />
+        <div className="container">
+          <div className="heading">
+            <input
+              type="text"
+              placeholder="Search by Style Name"
+              onChange={handleSearch}
+              value={searchQuery}
+            />
+          </div>
+          <div className="main-detail">
+            <div className="table-parent">
+              <div className="table-wrapper">
+                {Array.isArray(qcWork) && qcWork.length > 0 ? (
+                  <table className="qc-table">
+                    <thead>
+                      <tr>
+                        <th>SRF No.</th>
+                        <th>Style Name</th>
+                        <th>Days</th>
+                        <th>Task Start Date</th>
+                        <th>Task End Date</th>
+                        <th>Total Quantity</th>
+                        <th>Work Assigned To</th>
+                        <th>Status</th>
+                        <th>Remark</th>
+
+                        <th>Comment By Manager</th> 
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredStyle.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.srfNo}</td>
+                          <td>{item.styleName}</td>
+                          <td>{item.days}</td>
+                          <td>{item.assignDate}</td>
+                          <td>{item.endDate}</td>
+                          <td>{item.numberOfPcs}</td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  work.NameOfPerson
+                                )}
+                              </div>
+                            ))}
+
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  work.stauts
+                                )}
+                              </div>
+                            ))}
+
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.Comment}
+                              </div>
+                            ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((work, idx) => (
+                              <div key={idx}>
+                                {work.department === "QC CHECK" && (
+                                  work.Reviews || "No Remark"
+                                )}
+                              </div>
+                            ))}
+                          </td>
+                          <td>
+                            {item.WorkAssigned.map((works, idxz) => (
+                              <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
+                            ))}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="qc-message">{qcWork}</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      {/* <div className="qc-table">
       <input
         type="text"
         placeholder="Search by Style Name"
@@ -95,7 +195,7 @@ const Qcwork = () => {
               <th>Status</th>
               <th>Remark</th>
 
-              <th>Comment By Manager</th> {/* New column for Comment */}
+              <th>Comment By Manager</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -128,7 +228,7 @@ const Qcwork = () => {
                   ))}
 
                 </td>
-                <td> {/* New column for Comment */}
+                <td> 
                   {item.WorkAssigned.map((work, idx) => (
                     <div key={idx}>
                       {work.Comment}
@@ -149,7 +249,6 @@ const Qcwork = () => {
                     <button className='btn' onClick={() => handleChangeStatus(works._id)}>Mark complete work</button>
                   ))}
                 </td>
-                {/* Add more table cells for other details */}
               </tr>
             ))}
           </tbody>
@@ -157,7 +256,8 @@ const Qcwork = () => {
       ) : (
         <div className="qc-message">{qcWork}</div>
       )}
-    </div>
+    </div> */}
+    </>
   );
 };
 

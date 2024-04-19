@@ -14,7 +14,7 @@ function TrimDepartment() {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:8010/api/v1/get-All-styles', {
+            const res = await axios.get('https://sample-tracking.onrender.com/api/v1/get-All-styles', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -28,7 +28,7 @@ function TrimDepartment() {
 
     const fetchDataForTrim = async () => {
         try {
-            const res = await axios.get(`http://localhost:8010/api/v1/trim/${trimPersonName}`, {
+            const res = await axios.get(`https://sample-tracking.onrender.com/api/v1/trim/${trimPersonName}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -116,7 +116,7 @@ function TrimDepartment() {
             PersonName: trimPersonName
         }
         try {
-            const response = await axios.post(`http://localhost:8010/api/v1/update-style/${id}`, {
+            const response = await axios.post(`https://sample-tracking.onrender.com/api/v1/update-style/${id}`, {
                 status
             }, {
                 headers: {
@@ -131,7 +131,7 @@ function TrimDepartment() {
 
     const handleDeleteStyle = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8010/api/v1/delete-style/${id}`, {
+            const response = await axios.delete(`https://sample-tracking.onrender.com/api/v1/delete-style/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
