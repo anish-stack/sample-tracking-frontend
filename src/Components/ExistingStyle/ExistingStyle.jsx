@@ -6,7 +6,7 @@ import axios from 'axios';
 function ExistingStyle() {
     const [style, setStyle] = useState([]);
     const [filteredStyle, setFilteredStyle] = useState([]);
-    const [selectedStyle, setSelectedStyle] = useState(null);
+    const [selectedBuyer, setSelectedBuyer] = useState('');    const [selectedStyle, setSelectedStyle] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
     const token = sessionStorage.getItem('token');
@@ -27,6 +27,7 @@ function ExistingStyle() {
             });
             setStyle(res.data.data);
             setFilteredStyle(res.data.data);
+            console.log(filteredStyle)
         } catch (error) {
             console.log(error);
         }
@@ -35,7 +36,23 @@ function ExistingStyle() {
     useEffect(() => {
         fetchData();
     }, []);
-
+    useEffect(() => {
+        const filtered = style.filter(item => {
+            // Filter by buyer
+            if (selectedBuyer && item.buyers !== selectedBuyer) {
+                return false;
+            }
+            // Filter by style name
+            if (searchQuery.trim() !== '' && !item.styleName.toLowerCase().includes(searchQuery.toLowerCase())) {
+                return false;
+            }
+            return true;
+        });
+        setFilteredStyle(filtered);
+    }, [searchQuery, style, selectedBuyer]);
+    const handleBuyerChange = (e) => {
+        setSelectedBuyer(e.target.value);
+    }
     useEffect(() => {
         if (searchQuery.trim() === '') {
             setFilteredStyle(style);
@@ -90,6 +107,19 @@ function ExistingStyle() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
+                    <select value={selectedBuyer} onChange={handleBuyerChange}>
+                        <option value="">All Buyers</option>
+                        <option value="Primark">Primark</option>
+                        <option value="George">George</option>
+                        <option value="Nutmeg">Nutmeg</option>
+                        <option value="Next">Next</option>
+                        <option value="Pourmoi">Pourmoi</option>
+                        <option value="Lipsy">Lipsy</option>
+                        <option value="Mango">Mango</option>
+                        <option value="Asos">Asos</option>
+                        <option value="Noon">Noon</option>
+                        <option value="Brownie">Brownie</option>
+                    </select>
                 </div>
                
                 <div className="main-detail">

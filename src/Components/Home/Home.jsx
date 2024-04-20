@@ -25,6 +25,7 @@ import Cuttingworker from '../PatternCutting/Cuttingworker'
 import PrimarkBuyer from '../PrimarkBuyer/PrimarkBuyer'
 import FABRICUTTING from '../Fabric Cutting/FabricCutting'
 import FabricCuttingWorker from '../Fabric Cutting/FabricCuttingWorker'
+import UserTNA from '../TNA/UserTna'
 
 function Home() {
     const token = sessionStorage.getItem('token')
@@ -146,6 +147,8 @@ function Home() {
                             <Route path='/sewing-work' element={<SewingPerson />} />
                             <Route path='/Assign/:id' element={<AssignWork />} />
                             <Route path='/tna/:id' element={<TNA />} />
+                            <Route path='/user-tna/:id' element={<UserTNA />} />
+
                             <Route path='/add-new-style' element={<AddNewStyle />} />
 
                         </Routes>

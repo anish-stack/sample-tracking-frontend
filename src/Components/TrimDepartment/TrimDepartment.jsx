@@ -191,7 +191,7 @@ function TrimDepartment() {
 
 
 
-                                            <td><Link className='tna' to={`/tna/${item._id}`}>TNA</Link></td>
+                                            <td><Link className='tna' to={`/user-tna/${item._id}`}>TNA</Link></td>
                                             <td>
                                                 {item.status && item.status.length > 0 ? (
                                                     <ul>

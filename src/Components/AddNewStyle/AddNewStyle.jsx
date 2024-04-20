@@ -132,7 +132,7 @@ function AddNewStyle() {
                                 <option value="">Select Buyer</option>
                                 <option value="Primark">Primark</option>
                                 <option value="George">George</option>
-                                <option value="Nutmag">Nutmag</option>
+                                <option value="Nutmag">Nutmeg</option>
                                 <option value="Next">Next</option>
                                 <option value="Pourmoi">Pourmoi</option>
                                 <option value="Lipsy">Lipsy</option>
